@@ -181,6 +181,107 @@ const characters = [
         
     },
 
+    {
+        id: 14,
+        name: 'Gilderoy Lockhart',
+        house: 'Ravenclaw',
+        role: 'faculty',
+        sex: 'm',
+        summary: 'Professor Gilderoy Lockhart was a half-blood wizard, a Ravenclaw student at Hogwarts School of Witchcraft and Wizardry, and later a famous wizarding celebrity who authored many books on dark creatures and his supposed encounters with them. Prior to his tenure as Professor of Defence Against the Dark Arts at Hogwarts School of Witchcraft and Wizardry, he received many prestigious awards. Lockhart used his considerable talent in Memory Charms to force the actual people into forgetting their achievements, while he took credit for the acts. Lockhart lost all of his memory due to a backfired Memory Charm cast by Ron Weasley\'s damaged wand.',
+        profilePicture: '/assets/ravenclaw/GilderoyLockhart.jpg',
+        numberOfReviews: 0,
+        averageReview: 0,
+
+        
+    },
+
+    {
+        id: 15,
+        name: 'Luna Lovegood',
+        house: 'Ravenclaw',
+        role: 'student',
+        sex: 'f',
+        summary: 'Luna Lovegood was a witch and the only child and daughter of Xenophilius and Pandora Lovegood. Her mother accidentally died while experimenting with spells when Luna was nine and thus Luna was raised by her father, editor of the magazine The Quibbler. Luna attended Hogwarts School of Witchcraft and Wizardry from 1992 to 1999 and was sorted into Ravenclaw House. In her fourth year, Luna participated in the Battle of the Department of Mysteries (1996) and the Battle of the Astronomy Tower (1997), and co-led the reconstituted Dumbledore\'s Army when Hogwarts fell under the control of Lord Voldemort with Severus Snape as Headmaster.',
+        profilePicture: '/assets/ravenclaw/LunaLovegood.jpg',
+        numberOfReviews: 0,
+        averageReview: 0,
+
+        
+    },
+
+
+    {
+        id: 16,
+        name: 'Myrtle Warren',
+        house: 'Ravenclaw',
+        role: 'student',
+        sex: 'f',
+        summary: 'Myrtle Elizabeth Warren, more commonly known after her death as Moaning Myrtle, was a Muggle-born witch who attended Hogwarts School of Witchcraft and Wizardry from 1940 to 1943. She was killed in 1943 by the Serpent of Slytherin, which had been released by Tom Riddle. After the incident, she became a ghost who haunted the second-floor girls bathroom (and occasionally other bathroom facilities) at Hogwarts.',
+        profilePicture: '/assets/ravenclaw/MyrtleWarren.jpg',
+        numberOfReviews: 0,
+        averageReview: 0,
+
+        
+    },
+
+
+    {
+        id: 17,
+        name: 'Quirinus Quirrel',
+        house: 'Ravenclaw',
+        role: 'faculty',
+        sex: 'm',
+        summary: 'Professor Quirinus Quirrell was a half-blood wizard who attended Hogwarts School of Witchcraft and Wizardry and was Sorted into Ravenclaw House. He was the Muggle Studies professor at Hogwarts, though he later became the Defense Against the Dark Arts professor during the 1991–1992 school year. Voldemort took over his body turning him into a temporary Horcrux, though Quirrell put up some feeble resistance. He died while trying to murder Harry Potter in the Underground Chambers.',
+        profilePicture: '/assets/ravenclaw/MyrtleWarren.jpg',
+        numberOfReviews: 0,
+        averageReview: 0,
+
+        
+    },
+
+    {
+        id: 18,
+        name: 'Rowena Ravenclaw',
+        house: 'Ravenclaw',
+        role: 'faculty',
+        sex: 'f',
+        summary: 'Rowena Ravenclaw was a Scottish witch and one of the four founders of Hogwarts School of Witchcraft and Wizardry. She was noted for her intelligence and creativity. Ravenclaw died sometime in the eleventh century, after she fell fatally ill. Legend had it that a broken heart was the cause — because her daughter Helena ran away with her diadem. Rowena\'s portrait remained at Hogwarts.',
+        profilePicture: '/assets/ravenclaw/RowenaRavenclaw.jpg',
+        numberOfReviews: 0,
+        averageReview: 0,
+
+        
+    },
+
+    {
+        id: 19,
+        name: 'Sybill Trelawney',
+        house: 'Ravenclaw',
+        role: 'faculty',
+        sex: 'f',
+        summary: 'Professor Sybill Trelawney was a half-blood witch and Professor of Divination at Hogwarts School of Witchcraft and Wizardry. It was Trelawney who made the prophecy concerning Lord Voldemort and the one with the power to vanquish him (Voldemort took this to mean Harry Potter) during her job interview with Albus Dumbledore. At the end of the 1993–1994 school year, she accurately predicted the escape of Peter Pettigrew and the return of Lord Voldemort.',
+        profilePicture: '/assets/ravenclaw/RowenaRavenclaw.jpg',
+        numberOfReviews: 0,
+        averageReview: 0,
+
+        
+    },
+
+    {
+        id: 20,
+        name: 'Xenophilius Lovegood',
+        house: 'Ravenclaw',
+        role: 'parent',
+        sex: 'm',
+        summary: 'Xenophilius Lovegood was a wizard who worked as the editor of The Quibbler magazine, the husband of Pandora, and the father of Luna Lovegood. His wife died when their only child was nine years old, and he raised his daughter by himself. He was likely the source of his daughter\'s eccentric beliefs, although he was often correct in his assumptions. He believed in the existence of the Deathly Hallows and supported Harry in The Quibbler when few others would.',
+        profilePicture: '/assets/ravenclaw/XenophiliusLovegood.jpg',
+        numberOfReviews: 0,
+        averageReview: 0,
+
+        
+    },
+
+
 
 ];
 
