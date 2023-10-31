@@ -171,7 +171,7 @@ const characters = [
         id: 13,
         name: 'Garrick Olivander',
         house: 'Ravenclaw',
-        role: 'faculty',
+        role: 'student',
         sex: 'm',
         summary: 'Garrick Ollivander was a half-blood wizard who was the proprietor of Ollivanders in Diagon Alley during most of the 20th century. Ollivander was widely considered the best wandmaker in the world, and many wizards and witches bought their wands from him. In 1996, Ollivander was captured and tortured by Lord Voldemort. He was rescued in 1998 by Harry Potter, Ron Weasley, Hermione Granger, and Dobby. After he was rescued, he imparted important information regarding wandlore to Harry, helping Harry in his understanding of the Deathly Hallows.',
         profilePicture: '/assets/ravenclaw/GarrickOlivander.jpg',
