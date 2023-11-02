@@ -2,6 +2,7 @@ const db = require('./client');
 const { createUser } = require('./users');
 const{createCharacter}=require('./character');
 const {createReview}=require('./review');
+const {createAdminUser}=require('./admin');
 
 const users = [
   {
@@ -38,6 +39,7 @@ const dropTables = async () => {
         DROP TABLE IF EXISTS reviews;
         DROP TABLE IF EXISTS character;
         DROP TABLE IF EXISTS users;
+        DROP TABLE IF EXISTS admin;
        
        
         `)
@@ -70,7 +72,14 @@ const createTables = async () => {
           summary TEXT NOT NULL
         );
       `)
-        
+        await db.query(`
+        CREATE TABLE admin(
+          id SERIAL PRIMARY KEY,
+          name VARCHAR(255) DEFAULT 'name',
+          email VARCHAR(255) UNIQUE NOT NULL,
+          password VARCHAR(255) NOT NULL
+         );
+        `)
        await  db.query(`
        CREATE TABLE reviews(
         id SERIAL PRIMARY KEY, 
@@ -93,10 +102,29 @@ const createInitialUsers = async () => {
     for (const user of users) {
       await createUser({name: user.name, email: user.email, password: user.password});
     }
-    console.log('Seed data inserted successfully.');
+    console.log('Seed user data inserted successfully.');
   } catch (error) {
     console.error('Error inserting seed data:', error);
   }
+};
+
+const createIntialAdimnUser=async()=>{
+  try{
+    console.log('starting to create admin user');
+    const admins=[
+      {name:'kalpana' ,email:'kalpravi1989@gmail.com', password:'kalp123'},
+      {name:'Cameron' ,email:'cameron93malone@gmail.com', password:'cam123'},
+      {name:'Barbara' ,email:'bzkondracki@gmail.com', password:'bar123'}
+    ];
+    for(const admin of admins){
+      await createAdminUser({name:admin.name,email:admin.email,password:admin.password});
+    }
+    console.log('Seed adminUser data inserted successfully');
+  }catch(error){
+    console.log('Error creating adminUser!');
+    throw error;
+  }
+
 };
 
 async function createInitialCharacter() {
@@ -149,6 +177,7 @@ const seedDatabase = async () => {
         await createInitialUsers();
         await createInitialCharacter();
         await createInitialReviews();
+        await createIntialAdimnUser();
     }
     catch (err) {
         throw err;
