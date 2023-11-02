@@ -32,10 +32,35 @@
   font-family: "baroque-text-jf";
 } 
 
+.navlinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffc600;
+  color: #000000;
+  
+}
+
+.navlinks a {
+  text-decoration: none;
+  color: #000; /* Adjust the color as needed */
+  margin: 0 10px; /* Adjust the spacing between links */
+}
+
+.navlinks .separator {
+  margin: 0 5px; /* Adjust the spacing between links and icon */
+}
+
+.navlinks .separator::after {
+  content: "|"; /* Use any icon you prefer, for example: '\2022' for a bullet point */
+}
+
+
+
 @media screen and (max-width: 768px) {
   .navbar {
     background-color: #333;
-    padding: .5rem .5rem 2rem .5rem;
+    padding: .5rem .5rem 4.5rem .5rem;
     display: block;
 
   }  
@@ -57,12 +82,12 @@
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
+  font-weight: 600;
+  color: #000000;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #2d004d;
 }
 
 h1 {
@@ -70,10 +95,11 @@ h1 {
   line-height: 1.1;
 }
 
-
+/* BEGIN BUTTON STYLES */
 
 
 button {
+  margin-bottom: 10px;
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.5em 1em;
@@ -85,10 +111,33 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #2d004d;
   background-color: #ffc600;
 }
 button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.signup {
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #ffc600;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.signup:hover {
+  border-color: #2d004d;
+  background-color: #ffc600;
+}
+
+.signup:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
@@ -105,6 +154,8 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* END BUTTON STYLES */
 
 /* BEGIN FORM FIELDS */
 
