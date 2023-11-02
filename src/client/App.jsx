@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from './components/NavBar.jsx';
 import HomeTest from './components/HomeTest.jsx';
-import SignupPage from '/src/components/SignupPage.jsx';
+import SignupPage from '/src/client/components/SignupPage.jsx';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 
