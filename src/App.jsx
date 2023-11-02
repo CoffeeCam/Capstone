@@ -1,15 +1,22 @@
 import React from 'react';
 import NavBar from './components/NavBar.jsx';
+import HomeTest from './components/HomeTest.jsx';
+import SignupPage from '/src/components/SignupPage.jsx';
 import './App.css';
-import Login from './components/Login.jsx';
+import { Routes, Route } from 'react-router-dom';
+
 
 const App = () => {
   return (
     <div>
       <NavBar />
       <div className="main-content">
-        <h2>Main Content</h2>
-        {/* Add your main content here */}
+        
+        <Routes>
+          <Route path='/' element={<HomeTest />} />
+          <Route path='/signup' element={<SignupPage />} />
+          
+        </Routes>
       </div>
     </div>
   );
