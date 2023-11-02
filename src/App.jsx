@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from './components/NavBar.jsx';
 import './App.css';
-import Login from './components/Login.jsx';
+// import Login from './components/Login.jsx';
 
 const App = () => {
   return (
@@ -9,7 +9,18 @@ const App = () => {
       <NavBar />
       <div className="main-content">
         <h2>Main Content</h2>
-        {/* Add your main content here */}
+        <div>
+            <img src="./src/assets/gryffindor/crest-gryffindor.png"/>
+        </div>
+        <div>
+            <img src="./src/assets/hufflepuff/crest-hufflepuff.png"/>
+        </div>
+        <div>
+            <img src="./src/assets/ravenclaw/crest-ravenclaw.png"/>
+        </div>
+        <div>
+            <img src="./src/assets/slytherin/crest-slytherin.png"/>
+        </div>
       </div>
     </div>
   );
