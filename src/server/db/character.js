@@ -19,13 +19,58 @@ async function getCharacterByName(firstname){
     try {
       const {rows: [name]} = await db.query(`
         SELECT * FROM charcter
-        WHERE name = $1
+        WHERE firstname = $1
       `, [firstname]);
       return name;
     } catch (error) {
       throw error;
     }
   }
+  async function getCharacterBylastName(lastname){
+    try {
+      const {rows: [name]} = await db.query(`
+        SELECT * FROM charcter
+        WHERE lastname = $1
+      `, [lastname]);
+      return name;
+    } catch (error) {
+      throw error;
+    }
+  }
+  async function getCharacterByRole(role){
+    try {
+      const {rows: [name]} = await db.query(`
+        SELECT * FROM charcter
+        WHERE role = $1
+      `, [role]);
+      return name;
+    } catch (error) {
+      throw error;
+    }
+  }
+async function deleteCharacter(id) {
+  try {
+    const {rows: [name]} = await db.query(`
+      DELETE * FROM charcter
+      WHERE id = $1
+    `, [id]);
+    return name;
+  } catch (error) {
+    throw error;
+  }
+}
+async function updateCharacter(id){
+  try {
+    const {rows: [name]} = await db.query(`
+      UPDATE * FROM charcter
+      WHERE id = $1
+    `, [id]);
+    return name;
+  } catch (error) {
+    throw error;
+  }
+}
+  
 async function getAllCharacter(){
   try{
     const {rows}= await db.query(`
@@ -40,5 +85,10 @@ async function getAllCharacter(){
 module.exports = {
    createCharacter,
    getCharacterByName,
-   getAllCharacter
+   getCharacterBylastName,
+   getCharacterByRole,
+   getAllCharacter,
+   deleteCharacter,
+   updateCharacter
+
 };

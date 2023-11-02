@@ -13,6 +13,30 @@ const createReview=async({charId,creatorId,rating,review})=>{
         throw err;
     }
 }
+async function updateReview(id){
+    try{
+        const {rows: [name]} = await db.query(`
+        UPDATE * FROM review
+        WHERE id = $1
+      `, [id]);
+    }
+    catch(error){
+        throw error;
+    }
+}
+async function deleteReview(id){
+    try{
+        const {rows: [name]} = await db.query(`
+        DELETE * FROM review
+        WHERE id = $1
+      `, [id]);
+    }
+    catch(error){
+        throw error;
+    }
+}
 module.exports = {
-    createReview
+    createReview,
+    updateReview,
+    deleteReview
  };
