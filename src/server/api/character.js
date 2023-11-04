@@ -14,6 +14,7 @@ charactersRouter.get('/',async(req,res,next)=>{
     }
 })
 
+
 charactersRouter.post('/createCharacter',async(req,res,next)=>{
     const{firstname,lastname,image,house,sex,role,summary}=req.body;
     try{
