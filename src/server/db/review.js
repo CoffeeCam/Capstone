@@ -16,7 +16,7 @@ const createReview=async({charId,creatorId,rating,review})=>{
 async function updateReview(id){
     try{
         const {rows: [name]} = await db.query(`
-        UPDATE * FROM review
+        UPDATE * FROM reviews
         WHERE id = $1
       `, [id]);
     }
@@ -27,7 +27,7 @@ async function updateReview(id){
 async function deleteReview(id){
     try{
         const {rows: [name]} = await db.query(`
-        DELETE * FROM review
+        DELETE * FROM reviews
         WHERE id = $1
       `, [id]);
     }
@@ -35,8 +35,19 @@ async function deleteReview(id){
         throw error;
     }
 }
+async function getAllReview(){
+    try{
+        const {rows}= await db.query(`
+        SELECT * FROM reviews;
+        `);
+        return rows;
+      }catch(error){
+        throw error;
+      }
+}
 module.exports = {
     createReview,
     updateReview,
-    deleteReview
+    deleteReview,
+    getAllReview
  };
