@@ -1,5 +1,5 @@
 :root {
-  font-family: "Baskerville", "Georgia", "Times New Roman", serif;
+  font-family: "Georgia", "Times New Roman", serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -106,11 +106,12 @@ button {
   border: 1px solid transparent;
   padding: 0.5em 1em;
   font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
+  font-weight: 600;
   background-color: #f9f9f9;
   cursor: pointer;
   transition: border-color 0.25s;
+  font-family: "Inter", "Avenir", "Helvetica", sans-serif;
+  letter-spacing: 2px;
 }
 button:hover {
   border-color: #2d004d;
@@ -127,11 +128,12 @@ button:focus-visible {
   border: 1px solid transparent;
   padding: 0.5em 1em;
   font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
+  font-weight: 600;
   background-color: #ffc600;
   cursor: pointer;
   transition: border-color 0.25s;
+  font-family: "Inter", "Avenir", "Helvetica", sans-serif;
+  letter-spacing: 2px;
 }
 
 .signup:hover {
