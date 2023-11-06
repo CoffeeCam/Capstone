@@ -20,19 +20,19 @@ const gradeOptions = [
 
 function ReviewForm() {
   const [name, setName] = useState('');
-  const [rating, setRating] = useState('');
   const [grade, setGrade] = useState('');
+  const [writtenReview, setWrittenReview] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // You can add your logic here to handle the submission of the review
-    console.log('Review submitted:', { name, rating, grade });
+    console.log('Review submitted:', { name, grade, writtenReview });
 
     // Reset the form fields after submission
     setName('');
-    setRating('');
     setGrade('');
+    setWrittenReview('');
   };
 
   return (
@@ -46,18 +46,6 @@ function ReviewForm() {
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="rating">Rating:</label>
-          <input
-            type="number"
-            id="rating"
-            min="1"
-            max="5"
-            value={rating}
-            onChange={(e) => setRating(e.target.value)}
             required
           />
         </div>
@@ -76,6 +64,15 @@ function ReviewForm() {
               <label htmlFor={option.label}>{option.label}</label>
             </div>
           ))}
+        </div>
+        <div>
+          <label htmlFor="writtenReview">Written Review:</label>
+          <textarea
+            id="writtenReview"
+            value={writtenReview}
+            onChange={(e) => setWrittenReview(e.target.value)}
+            required
+          />
         </div>
         <button type="submit">Submit Review</button>
       </form>

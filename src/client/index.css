@@ -185,3 +185,26 @@ input[type="email"] {
 
 }
 /* END FORM FIELDS */
+
+/* BEGIN HOME PAGE IMAGE DISPLAY */
+.image-container {
+  display: flex;
+}
+
+.image-container img {
+  width: 25%;
+  cursor: pointer;
+}
+
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.category-item {
+  width: 25%;
+  text-align: center;
+  padding: 10px;
+}
+
+/* END HOME PAGE IMAGE DISPLAY */
