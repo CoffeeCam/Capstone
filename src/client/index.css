@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Baskerville", "Georgia", "Times New Roman", serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -38,7 +38,9 @@
   align-items: center;
   background-color: #ffc600;
   color: #000000;
-  
+  line-height: 2em;
+  padding: 5px 0px 2px 0px;
+  font-family: "Inter", "Avenir", "Helvetica", sans-serif;
 }
 
 .navlinks a {
