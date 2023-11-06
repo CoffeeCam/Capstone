@@ -49,9 +49,21 @@ const getUserByEmail = async(email) => {
         throw err;
     }
 }
+async function getAllUser(){
+    try{
+      const {rows}= await db.query(`
+      SELECT * FROM users;
+      `);
+      return rows;
+    }catch(error){
+      throw error;
+    }
+  }
+  
 
 module.exports = {
     createUser,
     getUser,
-    getUserByEmail
+    getUserByEmail,
+    getAllUser
 };
