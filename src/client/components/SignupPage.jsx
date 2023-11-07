@@ -7,11 +7,32 @@ function SignupPage() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [selectedHouse, setSelectedHouse] = useState('');
 
-    // Function to handle form submission
-    const handleSignup = (e) => {
+    const handleSignup = async (e) => {
       e.preventDefault();
-      // signup logic here, like sending a request to an API
-      console.log('Signup data:', { email, password, selectedHouse });
+
+      try {
+        const response = await fetch('/api/users/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email:  `${email}`,
+            password:  `${password}`,
+            house:  `${selectedHouse}`,
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Registration successful!', data);
+        } else {
+          const errorMessage = await response.text();
+          console.error('Registration failed:', errorMessage);
+        }
+      } catch (error) {
+        console.error('Error registering user:', error);
+      }
     };
 
     return (

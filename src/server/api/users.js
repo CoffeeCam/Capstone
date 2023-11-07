@@ -84,7 +84,7 @@ usersRouter.post('/register', async(req, res, next) => {
             
             email,
             password,
-            house
+            house,
         });
         if(!user){
             next({
