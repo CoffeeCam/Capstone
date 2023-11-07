@@ -212,3 +212,12 @@ input[type="email"] {
 }
 
 /* END HOME PAGE IMAGE DISPLAY */
+
+/* BEGIN GRADE STYLE */
+.grade {
+  font-size: 2.5em;
+  line-height: 1.1;
+  font-family: "chalky";
+  color: #2d004d;
+} 
+/* END GRADE STYLE */
