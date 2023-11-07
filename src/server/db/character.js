@@ -18,9 +18,21 @@ const createCharacter = async({firstname,lastname,image,house,sex,role,summary})
 async function getCharacterByName(firstname){
     try {
       const {rows: [name]} = await db.query(`
-        SELECT * FROM charcter
+        SELECT * FROM character
         WHERE firstname = $1
       `, [firstname]);
+      return name;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async function getCharacterByHouse(house){
+    try {
+      const {rows:name} = await db.query(`
+        SELECT * FROM character
+        WHERE house = $1
+      `, [house]);
       return name;
     } catch (error) {
       throw error;
@@ -29,7 +41,7 @@ async function getCharacterByName(firstname){
   async function getCharacterBylastName(lastname){
     try {
       const {rows: [name]} = await db.query(`
-        SELECT * FROM charcter
+        SELECT * FROM character
         WHERE lastname = $1
       `, [lastname]);
       return name;
@@ -40,7 +52,7 @@ async function getCharacterByName(firstname){
   async function getCharacterByRole(role){
     try {
       const {rows: [name]} = await db.query(`
-        SELECT * FROM charcter
+        SELECT * FROM character
         WHERE role = $1
       `, [role]);
       return name;
@@ -51,7 +63,7 @@ async function getCharacterByName(firstname){
 async function deleteCharacter(id) {
   try {
     const {rows: [name]} = await db.query(`
-      DELETE * FROM charcter
+      DELETE * FROM character
       WHERE id = $1
     `, [id]);
     return name;
@@ -62,7 +74,7 @@ async function deleteCharacter(id) {
 async function updateCharacter(id){
   try {
     const {rows: [name]} = await db.query(`
-      UPDATE * FROM charcter
+      UPDATE * FROM character
       WHERE id = $1
     `, [id]);
     return name;
@@ -89,6 +101,7 @@ module.exports = {
    getCharacterByRole,
    getAllCharacter,
    deleteCharacter,
+   getCharacterByHouse,
    updateCharacter
 
 };

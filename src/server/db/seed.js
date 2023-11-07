@@ -6,29 +6,34 @@ const {createAdminUser}=require('./admin');
 
 const users = [
   {
-    name: 'Emily Johnson',
+   
     email: 'emily@example.com',
     password: 'securepass',
+    house: 'Gryffindor',
   },
   {
-    name: 'Liu Wei',
+    
     email: 'liu@example.com',
     password: 'strongpass',
+    house:'Gryffindor',
   },
   {
-    name: 'Isabella García',
+   
     email: 'bella@example.com',
     password: 'pass1234',
+    house:'Slytherin',
   },
   {
-    name: 'Mohammed Ahmed',
+   
     email: 'mohammed@example.com',
     password: 'mysecretpassword',
+    house:'Slytherin',
   },
   {
-    name: 'John Smith',
+    
     email: 'john@example.com',
     password: 'password123',
+    house:'Hufflepuff',
   },
   // Add more user objects as needed
 ];  
@@ -55,9 +60,9 @@ const createTables = async () => {
         await db.query(`
         CREATE TABLE users(
             id SERIAL PRIMARY KEY,
-            name VARCHAR(255) DEFAULT 'name',
             email VARCHAR(255) UNIQUE NOT NULL,
-            password VARCHAR(255) NOT NULL
+            password VARCHAR(255) NOT NULL,
+            house VARCHAR(255) NOT NULL
         );
         `)
         await  db.query(`
@@ -100,7 +105,7 @@ const createTables = async () => {
 const createInitialUsers = async () => {
   try {
     for (const user of users) {
-      await createUser({name: user.name, email: user.email, password: user.password});
+      await createUser({ email: user.email, password: user.password,house: user.house});
     }
     console.log('Seed user data inserted successfully.');
   } catch (error) {
@@ -136,7 +141,8 @@ async function createInitialCharacter() {
       { firstname: 'Fred ' ,lastname:'Weasley',image:'/assets/gryffindor/Fred_Weasley.webp',house:'Gryffindor',sex:'M',role:'student', summary: 'Fred Weasley was an English pure-blood wizard, was the fourth son and the middle child, the most daring and dominant among the twins of Arthur Weasley and Molly Weasley, younger brother to Bill, Charlie and Percy, older twin brother and best friend to George Weasley, and older brother of Ron and Ginny Weasley. Both he and his twin brother were popular students, known for their sense of humour, pranks, inventions and the fact that they were Beaters for the Gryffindor Quidditch team.'},
       {firstname: 'George' ,lastname:'Weasley',image:'/assets/gryffindor/George_Weasley.webp',house:'Gryffindor',sex:'M',role:'student', summary: 'George Weasley was an English pure-blood wizard, was the fifth son and the middle child, the most daring and less dominant among the twins of Arthur Weasley and Molly Weasley, younger brother to Bill, Charlie and Percy, younger twin brother and best friend to Fred Weasley, and older brother of Ron and Ginny Weasley. Both he and his twin brother were popular students, known for their sense of humour, pranks, inventions and the fact that they were Beaters for the Gryffindor Quidditch team.' },
       { firstname: 'Ginny' ,lastname:'Weasley',image:'/assets/gryffindor/Ginny_Weasley.webp',house:'Gryffindor',sex:'F',role:'student', summary: 'Ginny Weasley was an English pure-blood witch, the only daughter of Arthur and Molly Weasley and the younger sister of Bill, Charlie, Percy, the late Fred, George and Ron. She was the first female to be born into the Weasley line for several generations. Ginny attended Hogwarts School of Witchcraft and Wizardry a year beneath the famous Harry Potter, and was sorted into Gryffindor House. During her first year, she developed a long-standing crush on Harry Potter and came under the influence of the memory of Tom Riddles sixteen-year-old self, who was preserved in a diary, which forced Ginny to re-open the Chamber of Secrets, endangering the lives of many students, including her own.'},
-      { firstname: 'Harry' ,lastname:'Potter',image:'/assets/gryffindor/Harry_Potter.jpeg',house:'Gryffindor',sex:'M',role:'student', summary: 'Harry Potter is a wizard who survived an attempted murder by an evil dark wizard named Lord Voldemort as an infant, leaving him with a distinctive lightning-shaped scar on his forehead. Harrys survival, coupled with the prophecy that surrounded him and Voldemort led him revered as one of the legendary figures by many in the Wizarding World as the Chosen One who is prophesied to defeat the Dark Lord.'},
+      { firstname: 'Filius' ,lastname:'Flitwick',image:'/assets/ravenclaw/FiliusFlitwick.jpg',house:'Ravenclaw',sex:'M',role:'faculty', summary: 'Professor Filius Flitwick was a part-goblin wizard who attended Hogwarts School of Witchcraft and Wizardry. Some time after his graduation, Flitwick returned to Hogwarts and became the Charms Master, as well as the Head of Ravenclaw House.'},
+      { firstname: 'Harry' ,lastname:'Potter',image:'/assets/ravenclaw/HarryPotter.jpg',house:'Gryffindor',sex:'M',role:'student', summary: 'Harry Potter is a wizard who survived an attempted murder by an evil dark wizard named Lord Voldemort as an infant, leaving him with a distinctive lightning-shaped scar on his forehead. Harrys survival, coupled with the prophecy that surrounded him and Voldemort led him revered as one of the legendary figures by many in the Wizarding World as the Chosen One who is prophesied to defeat the Dark Lord.'},
     ]
     for (const char of characters) {
       await createCharacter({firstname: char.firstname, lastname: char.lastname, image: char.image,house: char.house,sex: char.sex,role: char.role,summary: char.summary});

@@ -1,7 +1,7 @@
 const express = require('express')
 const charactersRouter = express.Router();
 
-const {createCharacter,getCharacterByName,getAllCharacter}=require('../db/character');
+const {createCharacter,getCharacterByName,getAllCharacter,getCharacterByHouse}=require('../db/character');
 
 
 // GET /api/characters
@@ -14,6 +14,15 @@ charactersRouter.get('/',async(req,res,next)=>{
     }
 })
 
+charactersRouter.get('/searchCharacter',async(req,res,next)=>{
+    try{
+        const {house}=req.query;
+        const chars=await getCharacterByHouse(house);
+        res.send(chars);
+    }catch(error){
+        next(error);
+    }
+})
 
 charactersRouter.post('/createCharacter',async(req,res,next)=>{
     const{firstname,lastname,image,house,sex,role,summary}=req.body;
