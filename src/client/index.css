@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Georgia", "Times New Roman", serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -38,7 +38,9 @@
   align-items: center;
   background-color: #ffc600;
   color: #000000;
-  
+  line-height: 2em;
+  padding: 5px 0px 2px 0px;
+  font-family: "Inter", "Avenir", "Helvetica", sans-serif;
 }
 
 .navlinks a {
@@ -102,13 +104,14 @@ button {
   margin-bottom: 10px;
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.5em 1em;
+  padding: 0.7em 1em .5em 1em;
   font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
+  font-weight: 600;
   background-color: #f9f9f9;
   cursor: pointer;
   transition: border-color 0.25s;
+  font-family: "Inter", "Avenir", "Helvetica", sans-serif;
+  letter-spacing: 2px;
 }
 button:hover {
   border-color: #2d004d;
@@ -123,13 +126,14 @@ button:focus-visible {
   margin-top: 10px;
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.5em 1em;
+  padding: 0.7em 1em .5em 1em;
   font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
+  font-weight: 600;
   background-color: #ffc600;
   cursor: pointer;
   transition: border-color 0.25s;
+  font-family: "Inter", "Avenir", "Helvetica", sans-serif;
+  letter-spacing: 2px;
 }
 
 .signup:hover {
@@ -185,3 +189,26 @@ input[type="email"] {
 
 }
 /* END FORM FIELDS */
+
+/* BEGIN HOME PAGE IMAGE DISPLAY */
+.image-container {
+  display: flex;
+}
+
+.image-container img {
+  width: 25%;
+  cursor: pointer;
+}
+
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.category-item {
+  width: 25%;
+  text-align: center;
+  padding: 10px;
+}
+
+/* END HOME PAGE IMAGE DISPLAY */
