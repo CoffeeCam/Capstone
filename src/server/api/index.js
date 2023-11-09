@@ -6,7 +6,7 @@ const client = require('../db/client');
 const volleyball = require('volleyball')
 const { JWT_SECRET = 'neverTell'} = process.env;
 
-apiRouter.use(volleyball)
+
 
 apiRouter.get('/health', async (req, res, next) => {
   try {
@@ -51,7 +51,12 @@ apiRouter.use(async (req, res, next) => {
     });
   }
 });
-
+apiRouter.use((req, res, next) => {
+  if (req.user) {
+    console.log("User is set:", req.user);
+  }
+  next();
+});
 // ROUTER: /api/users
 const usersRouter = require('./users');
 apiRouter.use('/users', usersRouter);

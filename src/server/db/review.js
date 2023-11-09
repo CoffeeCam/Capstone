@@ -13,10 +13,10 @@ const createReview=async({charId,creatorId,rating,review})=>{
         throw err;
     }
 }
-async function updateReview(id){
+async function updateReview1(id,rating,review){
     try{
         const {rows: [name]} = await db.query(`
-        UPDATE * FROM reviews
+        UPDATE rating,review FROM reviews
         WHERE id = $1
       `, [id]);
     }
@@ -24,6 +24,29 @@ async function updateReview(id){
         throw error;
     }
 }
+
+async function updateReview({id, ...fields}){
+    try {
+      const toUpdate = {}
+      for(let column in fields) {
+        if(fields[column] !== undefined) toUpdate[column] = fields[column];
+      }
+      let activity;
+      if (util.dbFields(toUpdate).insert.length > 0) {
+        const {rows} = await client.query(`
+          UPDATE activities
+          SET ${ util.dbFields(toUpdate).insert }
+          WHERE id=${ id }
+          RETURNING *;
+        `, Object.values(toUpdate));
+        activity = rows[0];
+      }
+      return activity;
+    } catch (error) {
+      throw error
+    }
+  }
+
 async function deleteReview(id){
     try{
         const {rows: [name]} = await db.query(`
@@ -48,6 +71,7 @@ async function getAllReview(){
 module.exports = {
     createReview,
     updateReview,
+    updateReview1,
     deleteReview,
     getAllReview
  };
