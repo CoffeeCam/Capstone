@@ -18,7 +18,7 @@ charactersRouter.get('/searchCharacter',async(req,res,next)=>{
     try{
         const {house}=req.query;
         const chars=await getCharacterByHouse(house);
-        res.send(chars);
+        res.send({'chars': chars});
     }catch(error){
         next(error);
     }
