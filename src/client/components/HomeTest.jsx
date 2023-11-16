@@ -7,22 +7,25 @@ const HomeTest = () => {
 
   useEffect(() => {
     // Fetch data for the initial category (e.g., 'gryffindor') when the component mounts
-    fetchDataForCategory('gryffindor');
+    fetchDataForCategory('Gryffindor');
   }, []);
 
   const fetchDataForCategory = async (selectedCategory) => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/characters/searchCharacter?house=${selectedCategory}`);
+      const response = await fetch(`http://localhost:3000/api/characters/searchCharacter?house=${selectedCategory}`);
+      console.log(response)
+      const categoryData = await response.json();
+console.log(categoryData)
       if (response.ok) {
-        const categoryData = await response.json();
-        setCategoryList(categoryData);
+        setCategoryList(categoryData['chars']);
       } else {
         console.error('Failed to fetch category data');
       }
     } catch (error) {
       console.error('Error fetching category data:', error);
     } finally {
+      console.log(categoryList)
       setLoading(false);
     }
   };
@@ -67,7 +70,7 @@ const HomeTest = () => {
           <img
             src="./src/client/assets/gryffindor/crest-gryffindor.png"
             alt="Gryffindor"
-            onClick={() => fetchDataForCategory('gryffindor')}
+            onClick={() => fetchDataForCategory('Gryffindor')}
           />
         </div>
         <div>
@@ -94,15 +97,16 @@ const HomeTest = () => {
       </div>
       <div>
         <h2>Category List</h2>
-        {loading ? (
+        {/* {loading ? (
           <p>Loading...</p>
-        ) : (
+        ) : ( */}
           <ul>
-            {categoryList.map((category) => (
-              <li key={category.id}>{category.firstname}</li>
-            ))}
+            {categoryList.map((category) => {
+              console.log('here2')
+              return <li key={category.id}>{category.firstname}</li>
+            })}
           </ul>
-        )}
+        {/* )} */}
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ const App = () => {
       <NavBar />
       <div className={`main-content ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
         <button onClick={toggleDarkMode}>
-          {isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          {isDarkMode ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
         </button>
         <Routes>
           <Route path='/' element={<HomeTest />} />
