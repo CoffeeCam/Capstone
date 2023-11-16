@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBar from './components/NavBar.jsx';
 import HomeTest from './components/HomeTest.jsx';
 import SignupPage from '/src/client/components/SignupPage.jsx';
@@ -9,9 +9,13 @@ import { Routes, Route } from 'react-router-dom';
 const App = () => {
   const [isDarkMode, setDarkMode] = useState(false);
 
+  useEffect(() => {
+    document.body.classList.toggle('dark-mode', isDarkMode);
+    document.body.classList.toggle('light-mode', !isDarkMode);
+  }, [isDarkMode]);
+  
   const toggleDarkMode = () => {
     setDarkMode((prevMode) => !prevMode);
-    document.body.classList.toggle('dark-mode', !isDarkMode);
   };
 
   return (
@@ -19,7 +23,7 @@ const App = () => {
       <NavBar />
       <div className={`main-content ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
         <button onClick={toggleDarkMode}>
-          {isDarkMode ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+        Switch to {isDarkMode ? 'Light' : 'Dark'} Mode
         </button>
         <Routes>
           <Route path='/' element={<HomeTest />} />
