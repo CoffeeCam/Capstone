@@ -40,7 +40,8 @@
   color: #000000;
   line-height: 2em;
   padding: 5px 0px 2px 0px;
-  font-family: "Inter", "Avenir", "Helvetica", sans-serif;
+  font-family: "gooddog-new",sans-serif;
+  font-weight: 600;
 }
 
 .navlinks a {
@@ -110,7 +111,7 @@ button {
   background-color: #f9f9f9;
   cursor: pointer;
   transition: border-color 0.25s;
-  font-family: "Inter", "Avenir", "Helvetica", sans-serif;
+  font-family: "gooddog-new",sans-serif;
   letter-spacing: 2px;
 }
 button:hover {
@@ -132,12 +133,13 @@ button:focus-visible {
   background-color: #ffc600;
   cursor: pointer;
   transition: border-color 0.25s;
-  font-family: "Inter", "Avenir", "Helvetica", sans-serif;
+  font-family: "gooddog-new",sans-serif;
   letter-spacing: 2px;
 }
 
 .signup:hover {
   border-color: #2d004d;
+  border-width: 2px;
   background-color: #ffc600;
 }
 
@@ -210,7 +212,6 @@ input[type="email"] {
   text-align: center;
   padding: 10px;
 }
-
 /* END HOME PAGE IMAGE DISPLAY */
 
 /* BEGIN GRADE STYLE */
