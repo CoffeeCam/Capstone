@@ -28,8 +28,8 @@ ul li img {
   height: auto;
 }
 
-/* Add additional styling as needed for the container div */
+
 ul li div {
-  text-align: center; /* Center the content within the div */
-  margin-bottom: 20px; /* Add space between each list item */
+  text-align: center; 
+  margin-bottom: 20px; 
 }
