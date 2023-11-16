@@ -6,6 +6,9 @@ function SignupPage() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [selectedHouse, setSelectedHouse] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [isRegistrationSuccessful, setIsRegistrationSuccessful] = useState(false);  
 
     const handleSignup = async (e) => {
       e.preventDefault();
@@ -26,19 +29,28 @@ function SignupPage() {
         if (response.ok) {
           const data = await response.json();
           console.log('Registration successful!', data);
+          setIsRegistrationSuccessful(true);
+  setSuccessMessage(`Registration successful! You have been sorted into ${selectedHouse}.`);
         } else {
           const errorMessage = await response.text();
-          console.error('Registration failed:', errorMessage);
+          try {
+            const errorObj = JSON.parse(errorMessage);
+            setErrorMessage(errorObj.message); // Set error message state
+          } catch (error) {
+            setErrorMessage(errorMessage);
+          }
         }
       } catch (error) {
         console.error('Error registering user:', error);
+        setErrorMessage('Error registering user'); // Set error message state
       }
-    };
+    };    
 
     return (
       <>
         <div style={{ textAlign: 'left', maxWidth: '400px', margin: '0 auto'  }}>
           <h2>Create an Account</h2>
+          {errorMessage && <div style={{ color: '#9c1203', fontWeight: 600, marginBottom: '10px' }}>{errorMessage}</div>}
           <form onSubmit={handleSignup}>
           <div style={{ marginBottom: '10px' }}>
               <label htmlFor="email" style={{ display: 'block' }}>Email:&nbsp;</label>
