@@ -63,20 +63,20 @@ usersRouter.post('/login', async(req, res, next) => {
 usersRouter.post('/register', async(req, res, next) => {
     
     try {
-        const { email, password,house } = req.body;
+        const { email, password, confirmPassword, house } = req.body;
         const queriedUser = await getUserByEmail(email);
 
         if(queriedUser) {
             res.status(401);
             next({
                 name: 'UserExistsError',
-                message: 'A user with that email already exists'
+                message: 'A user with that email already exists.'
             });
         }else if (password.length < 8) {
             res.status(401);
             next({
               name: 'PasswordLengthError',
-              message: 'Password Too Short!'
+              message: 'Password must be at least 8 characters in length.'
             });
         } else{
         const user = await createUser({
@@ -88,7 +88,7 @@ usersRouter.post('/register', async(req, res, next) => {
         if(!user){
             next({
                 name: 'UserCreationError',
-                message: 'There was a problem registering you. Please try again.',
+                message: 'Sorry, something went wrong. Please try again.',
             });
         }else{
         const token = jwt.sign({

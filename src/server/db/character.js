@@ -29,11 +29,11 @@ async function getCharacterByName(firstname){
 
   async function getCharacterByHouse(house){
     try {
-      const {rows:[name]} = await db.query(`
+      const {rows: characters} = await db.query(`
         SELECT * FROM character
-        WHERE house = $1
+        WHERE house = $1;
       `, [house]);
-      return name;
+      return characters;
     } catch (error) {
       throw error;
     }
