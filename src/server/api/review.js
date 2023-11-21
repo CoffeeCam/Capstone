@@ -2,7 +2,7 @@ const express = require('express')
 const reviewsRouter = express.Router();
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET = 'neverTell' } = process.env;
-const {createReview,getAllReview}=require('../db/review');
+const {createReview,getAllReview, getReviewBycharId,getRatingBycharId}=require('../db/review');
 
 
 reviewsRouter.post('/createReview',async(req,res,next)=>{
@@ -46,5 +46,27 @@ reviewsRouter.get('/',async(req,res,next)=>{
         next(error);
     }
 })
+
+reviewsRouter.get('/rating/:charId',async(req,res,next)=>{
+   try{
+    const {charId}=req.params;
+    const rating=await getRatingBycharId(charId);
+    res.send(rating);
+   }catch(error){
+    next(error);
+   }
+
+})
+
+reviewsRouter.get('/review/:charId',async(req,res,next)=>{
+    try{
+     const {charId}=req.params;
+     const rating=await getReviewBycharId(charId);
+     res.send(rating);
+    }catch(error){
+     next(error);
+    }
+ 
+ })
     
 module.exports = reviewsRouter;
