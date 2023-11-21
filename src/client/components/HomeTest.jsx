@@ -118,9 +118,9 @@ console.log(categoryData)
                           {category.role} <br/> 
                           {category.summary} <br/>
                           <button onClick={() => handleCharacterClick(category)}>Start Review</button>
-                          {selectedCharacter && (
-        <ReviewForm selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview} />
-      )}
+                          {selectedCharacter && selectedCharacter.id === category.id && (
+                  <ReviewForm selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview} />
+                )}
                         </div>
                       </li>
             })}
