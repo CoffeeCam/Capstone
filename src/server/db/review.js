@@ -1,4 +1,5 @@
 const db = require('./client');
+const{dbFields}=require('./util');
 
 const createReview=async({charId,creatorId,rating,review})=>{
     try {
@@ -13,17 +14,29 @@ const createReview=async({charId,creatorId,rating,review})=>{
         throw err;
     }
 }
-async function updateReview(id){
-    try{
-        const {rows: [name]} = await db.query(`
-        UPDATE * FROM reviews
-        WHERE id = $1
-      `, [id]);
-    }
-    catch(error){
-        throw error;
-    }
+async function updateReview({id,...fields}){
+  try{
+      const toupdate={};
+      for(let column in fields){
+        if(fields[column]!=undefined) toupdate[column]=fields[column];
+      }
+      let review;
+      if(util.dbFields(toupdate).insert.length>0){
+        const {rows} = await db.query(`
+        UPDATE reviews 
+        SET ${util.dbFields(toupdate).insert}
+        WHERE id = ${1}
+        RETURNING *;
+      `, Object.values(toupdate));
+      review=rows[0];
+      }
+     return review;
+  }
+  catch(error){
+      throw error;
+  }
 }
+
 async function deleteReview(id){
     try{
         const {rows: [name]} = await db.query(`
