@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReviewForm from './ReviewForm';
 
 const HomeTest = () => {
   const [categoryList, setCategoryList] = useState([]);
@@ -37,15 +38,6 @@ console.log(categoryData)
       return;
     }
 
-    const handleCharacterClick = (character) => {
-      setSelectedCharacter(character);
-    };
-  
-    const handleSubmitReview = (reviewData) => {
-      // Handle the submission of the review data, e.g., send it to your backend
-      console.log('Review submitted:', reviewData);
-    };
-
     setLoading(true);
     try {
       const response = await fetch(`/api/characters/searchCharacter?house=${searchQuery}`);
@@ -60,6 +52,15 @@ console.log(categoryData)
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleCharacterClick = (character) => {
+    setSelectedCharacter(character);
+  };
+
+  const handleSubmitReview = (reviewData) => {
+    // Handle the submission of the review data, e.g., send it to your backend
+    console.log('Review submitted:', reviewData);
   };
 
   return (
@@ -116,15 +117,18 @@ console.log(categoryData)
                           {category.firstname} {category.lastname} <br/>
                           {category.role} <br/> 
                           {category.summary} <br/>
-                          <button onClick={() => handleCharacterClick(category)}>Submit Review</button>
+                          {/* <button onClick={() => handleCharacterClick(category)}>Submit Review</button> */}
+                          {selectedCharacter && (
+        <ReviewForm selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview} />
+      )}
                         </div>
                       </li>
             })}
           </ul>
-      </div>
-      {selectedCharacter && (
+          {/* {selectedCharacter && (
         <ReviewForm selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview} />
-      )}
+      )} */}
+      </div>
     </div>
   );
 };
