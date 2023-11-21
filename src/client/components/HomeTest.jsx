@@ -117,7 +117,7 @@ console.log(categoryData)
                           {category.firstname} {category.lastname} <br/>
                           {category.role} <br/> 
                           {category.summary} <br/>
-                          {/* <button onClick={() => handleCharacterClick(category)}>Submit Review</button> */}
+                          <button onClick={() => handleCharacterClick(category)}>Start Review</button>
                           {selectedCharacter && (
         <ReviewForm selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview} />
       )}
