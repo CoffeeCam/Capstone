@@ -4,9 +4,10 @@ const HomeTest = () => {
   const [categoryList, setCategoryList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
+  const [selectedCharacter, setSelectedCharacter] = useState(null);
+
 
   useEffect(() => {
-    // Fetch data for the initial category (e.g., 'gryffindor') when the component mounts
     fetchDataForCategory('Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin');
   }, []);
 
@@ -35,6 +36,15 @@ console.log(categoryData)
       // Handle empty search query if needed
       return;
     }
+
+    const handleCharacterClick = (character) => {
+      setSelectedCharacter(character);
+    };
+  
+    const handleSubmitReview = (reviewData) => {
+      // Handle the submission of the review data, e.g., send it to your backend
+      console.log('Review submitted:', reviewData);
+    };
 
     setLoading(true);
     try {
@@ -100,10 +110,21 @@ console.log(categoryData)
           <ul>
             {categoryList.map((category) => {
               console.log('here2')
-              return <li key={category.id}><div><img src={category.image}/> <br/> {category.firstname} {category.lastname} <br/> {category.role} <br/> {category.summary}</div></li>
+              return <li key={category.id}>
+                        <div>
+                          <img src={category.image}/> <br/> 
+                          {category.firstname} {category.lastname} <br/>
+                          {category.role} <br/> 
+                          {category.summary} <br/>
+                          <button onClick={() => handleCharacterClick(category)}>Submit Review</button>
+                        </div>
+                      </li>
             })}
           </ul>
       </div>
+      {selectedCharacter && (
+        <ReviewForm selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview} />
+      )}
     </div>
   );
 };
