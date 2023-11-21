@@ -7,7 +7,7 @@ const HomeTest = () => {
 
   useEffect(() => {
     // Fetch data for the initial category (e.g., 'gryffindor') when the component mounts
-    fetchDataForCategory('Gryffindor');
+    fetchDataForCategory('Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin');
   }, []);
 
   const fetchDataForCategory = async (selectedCategory) => {
@@ -77,36 +77,32 @@ console.log(categoryData)
           <img
             src="./src/client/assets/hufflepuff/crest-hufflepuff.png"
             alt="Hufflepuff"
-            onClick={() => fetchDataForCategory('hufflepuff')}
+            onClick={() => fetchDataForCategory('Hufflepuff')}
           />
         </div>
         <div>
           <img
             src="./src/client/assets/ravenclaw/crest-ravenclaw.png"
             alt="Ravenclaw"
-            onClick={() => fetchDataForCategory('ravenclaw')}
+            onClick={() => fetchDataForCategory('Ravenclaw')}
           />
         </div>
         <div>
           <img
             src="./src/client/assets/slytherin/crest-slytherin.png"
             alt="Slytherin"
-            onClick={() => fetchDataForCategory('slytherin')}
+            onClick={() => fetchDataForCategory('Slytherin')}
           />
         </div>
       </div>
       <div>
         <h2>Category List</h2>
-        {/* {loading ? (
-          <p>Loading...</p>
-        ) : ( */}
           <ul>
             {categoryList.map((category) => {
               console.log('here2')
-              return <li key={category.id}>{category.firstname}</li>
+              return <li key={category.id}><div><img src={category.image}/> <br/> {category.firstname} {category.lastname} <br/> {category.role} <br/> {category.summary}</div></li>
             })}
           </ul>
-        {/* )} */}
       </div>
     </div>
   );
