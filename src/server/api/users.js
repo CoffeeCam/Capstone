@@ -9,9 +9,8 @@ const {
     getUserById,
     getAllUser
 } = require('../db/users');
-const jwt = require('jsonwebtoken')
-
-
+const jwt = require('jsonwebtoken');
+const { requireUser, requiredNotSent } = require('./utils');
 
 
 

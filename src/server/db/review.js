@@ -45,9 +45,32 @@ async function getAllReview(){
         throw error;
       }
 }
+async function getReviewBycharId(id){
+    try{
+        const {rows}= await db.query(`
+        SELECT * FROM reviews WHERE charId = $1
+        `, [id]);
+        return rows;
+      }catch(error){
+        throw error;
+      }
+}
+async function getRatingBycharId(id){
+    try{
+        const {rows}= await db.query(`
+        SELECT rating FROM reviews WHERE charId = $1
+        `, [id]);
+        return rows;
+      }catch(error){
+        throw error;
+      }
+}
+
 module.exports = {
     createReview,
     updateReview,
     deleteReview,
-    getAllReview
+    getAllReview,
+    getReviewBycharId,
+    getRatingBycharId
  };

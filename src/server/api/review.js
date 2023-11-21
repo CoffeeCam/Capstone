@@ -1,12 +1,24 @@
 const express = require('express')
 const reviewsRouter = express.Router();
-
-const {createReview,getAllReview}=require('../db/review');
+const jwt = require('jsonwebtoken')
+const { JWT_SECRET = 'neverTell' } = process.env;
+const {createReview,getAllReview, getReviewBycharId,getRatingBycharId}=require('../db/review');
 
 
 reviewsRouter.post('/createReview',async(req,res,next)=>{
-    const{charId,creatorId,rating,review}=req.body;
-    try{
+    const prefix='Bearer ';
+    const auth = req.get('Authorization');
+    if (!auth) { 
+        next();
+      } 
+      else if (auth.startsWith(prefix)) {
+        try{
+        const token = auth.slice(prefix.length);
+        const parsedToken = jwt.verify(token,JWT_SECRET);
+        const creatorId=parsedToken && parsedToken.id;
+      
+    const{charId,rating,review}=req.body;
+    
         const char=await createReview({
             charId,creatorId,rating,review
         });
@@ -17,8 +29,15 @@ reviewsRouter.post('/createReview',async(req,res,next)=>{
     }
     catch(error){
         next(error);
-    }
+    }}
+    else {
+        next({
+          name: 'AuthorizationHeaderError',
+          message: ''
+        });
+      }
 })
+
 reviewsRouter.get('/',async(req,res,next)=>{
     try{
         const reviews=await getAllReview();
@@ -28,4 +47,26 @@ reviewsRouter.get('/',async(req,res,next)=>{
     }
 })
 
+reviewsRouter.get('/rating/:charId',async(req,res,next)=>{
+   try{
+    const {charId}=req.params;
+    const rating=await getRatingBycharId(charId);
+    res.send(rating);
+   }catch(error){
+    next(error);
+   }
+
+})
+
+reviewsRouter.get('/review/:charId',async(req,res,next)=>{
+    try{
+     const {charId}=req.params;
+     const rating=await getReviewBycharId(charId);
+     res.send(rating);
+    }catch(error){
+     next(error);
+    }
+ 
+ })
+    
 module.exports = reviewsRouter;
