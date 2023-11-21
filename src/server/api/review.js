@@ -2,8 +2,8 @@ const express = require('express')
 const reviewsRouter = express.Router();
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET = 'neverTell' } = process.env;
-const {createReview,getAllReview, getReviewBycharId,getRatingBycharId}=require('../db/review');
-const { requireUser,requiredNotSent}=require('./utils');
+const {createReview,getAllReview, getReviewBycharId,getRatingBycharId,updateReview,getReviewById}=require('../db/review');
+const { requiredNotSent}=require('./utils');
 
 reviewsRouter.post('/createReview',async(req,res,next)=>{
     const prefix='Bearer ';

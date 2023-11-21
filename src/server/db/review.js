@@ -1,5 +1,5 @@
 const db = require('./client');
-const{dbFields}=require('./util');
+const util=require('./util');
 
 const createReview=async({charId,creatorId,rating,review})=>{
     try {
@@ -58,6 +58,18 @@ async function getAllReview(){
         throw error;
       }
 }
+async function getReviewById(id){
+  try{
+      const {rows: [review]} = await db.query(`
+      SELECT * FROM reviews
+      WHERE id = $1
+    `, [id]);
+    return review;
+  }
+  catch(error){
+      throw error;
+  }
+}
 async function getReviewBycharId(id){
     try{
         const {rows}= await db.query(`
@@ -79,11 +91,13 @@ async function getRatingBycharId(id){
       }
 }
 
+
 module.exports = {
     createReview,
     updateReview,
     deleteReview,
     getAllReview,
     getReviewBycharId,
-    getRatingBycharId
+    getRatingBycharId,
+    getReviewById
  };
