@@ -2,8 +2,8 @@ const express = require('express')
 const reviewsRouter = express.Router();
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET = 'neverTell' } = process.env;
-const {createReview,getAllReview, getReviewBycharId,getRatingBycharId}=require('../db/review');
-
+const {createReview,getAllReview, getReviewBycharId,getRatingBycharId,updateReview,getReviewById}=require('../db/review');
+const { requiredNotSent}=require('./utils');
 
 reviewsRouter.post('/createReview',async(req,res,next)=>{
     const prefix='Bearer ';
@@ -68,5 +68,34 @@ reviewsRouter.get('/review/:charId',async(req,res,next)=>{
     }
  
  })
+ reviewsRouter.patch('/:reviewId',requiredNotSent({requiredParams: ['rating', 'review'], atLeastOne: true}),async(req,res,next)=>{
+   
+    try{
+       const{reviewId}=req.params;
+       const existingReview=await getReviewById(reviewId);
+       if(!existingReview){
+           next({
+               name:'NotFound',
+               message:'No review found'
+           });
+       }else{
+           const{rating,review}=req.body;
+           const updatedReview=await updateReview({id:reviewId,rating,review});
+           if(updatedReview){
+               res.send(updatedReview);
+           }else{
+               next({
+                   name:'FailToUpdate',
+                   message:'There was an error updating the review'
+               })
+           }
+   
+       }
+    }
+   catch(error){
+     next(error);
+   }
+   });
+   
     
 module.exports = reviewsRouter;
