@@ -13,6 +13,12 @@ function SignupPage() {
     const handleSignup = async (e) => {
       e.preventDefault();
 
+        // Check if password and confirmPassword match
+  if (password !== confirmPassword) {
+    setErrorMessage('Passwords do not match');
+    return; // Prevent further execution of registration logic
+  }
+
       try {
         const response = await fetch('/api/users/register', {
           method: 'POST',
@@ -51,6 +57,9 @@ function SignupPage() {
         <div style={{ textAlign: 'left', maxWidth: '400px', margin: '0 auto'  }}>
           <h2>Create an Account</h2>
           {errorMessage && <div style={{ color: '#9c1203', fontWeight: 600, marginBottom: '10px' }}>{errorMessage}</div>}
+          
+          {successMessage && <div style={{ color: 'green', fontWeight: 600, marginBottom: '10px' }}>{successMessage}</div>}
+          
           <form onSubmit={handleSignup}>
           <div style={{ marginBottom: '10px' }}>
               <label htmlFor="email" style={{ display: 'block' }}>Email:&nbsp;</label>
