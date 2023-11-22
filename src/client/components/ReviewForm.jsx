@@ -18,16 +18,61 @@ const gradeOptions = [
   { label: 'F-', value: 30 }
 ];
 
-function ReviewForm() {
+function ReviewForm({charId,userId,token,}) {
   
   const [grade, setGrade] = useState('');
   const [writtenReview, setWrittenReview] = useState('');
+  const[errormsg,setError]=useState('');
+  const[isreRiewCreated,setIsReviewCreated]=useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
-    // You can add your logic here to handle the submission of the review
-    console.log('Review submitted:', { name, grade, writtenReview });
+    try {
+      const res=await fetch('api/reviews/isReviewPresent',{
+        method:'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          charId:`${charId}`,
+          creatorId: `${userId}`
+        })
+      });
+      const res1=await res.json();
+      console.log('isreviewPresent',res1);
+      console.log(Object.keys(res1).length);
+      
+      if( Object.keys(res1).length<1){
+        const response = await fetch('api/reviews/createReview', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization':`Bearer ${token}` 
+          },
+          body: JSON.stringify({
+            charId:`${charId}`,
+            rating: `${grade}`,
+            review: `${writtenReview}`
+          }),
+        });
+       
+        const result=await response.json();
+        console.log('review created:',result);
+      }else{
+       
+        setError('you Already created review for this character');
+       
+      }
+    }catch(error){
+       console.error("you already reviewed this character");
+    }
+    
+    console.log(charId );
+    console.log(userId);
+    console.log(token);
+    console.log(grade);
+    console.log(writtenReview);
 
     // Reset the form fields after submission
    
@@ -68,6 +113,7 @@ function ReviewForm() {
             required
           />
         </div>
+        {errormsg&&<div style={{ color: '#9c1203', fontWeight: 600, marginBottom: '10px' }}>{errormsg}</div>}
         <button type="submit">Submit Review</button>
       </form>
     </div>

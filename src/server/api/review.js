@@ -2,7 +2,7 @@ const express = require('express')
 const reviewsRouter = express.Router();
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET = 'neverTell' } = process.env;
-const {createReview,getAllReview, getReviewBycharId,getRatingBycharId,updateReview,getReviewById}=require('../db/review');
+const {createReview,getAllReview, getReviewBycharId,getRatingBycharId,updateReview,getReviewById,getReviewCharIdCreatorId}=require('../db/review');
 const { requiredNotSent}=require('./utils');
 
 reviewsRouter.post('/createReview',async(req,res,next)=>{
@@ -27,8 +27,8 @@ reviewsRouter.post('/createReview',async(req,res,next)=>{
            char
         });
     }
-    catch(error){
-        next(error);
+    catch({error}){
+        next({error});
     }}
     else {
         next({
@@ -67,6 +67,28 @@ reviewsRouter.get('/review/:charId',async(req,res,next)=>{
      next(error);
     }
  
+ })
+ reviewsRouter.post('/isReviewPresent',async(req,res,next)=>{
+    try{
+    const {charId,creatorId}=req.body;
+    const char=parseInt(charId);
+    const creator=parseInt(creatorId);
+    if(!charId||!creatorId){
+        next({
+            name: 'MissingCredentialsError',
+            message: 'Please supply both an charId and creatorId'
+        });
+    }
+   
+       const isReviewPresent=await getReviewCharIdCreatorId(char,creator);
+       const len=Object.keys(isReviewPresent).length 
+       res.send(isReviewPresent);
+       
+
+      
+    }catch(error){
+     next(error);
+    }
  })
  reviewsRouter.patch('/:reviewId',requiredNotSent({requiredParams: ['rating', 'review'], atLeastOne: true}),async(req,res,next)=>{
    

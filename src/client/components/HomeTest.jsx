@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReviewForm from './ReviewForm';
 
-const HomeTest = ({token,setToken}) => {
+const HomeTest = ({token,userId}) => {
   const [categoryList, setCategoryList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
@@ -122,7 +122,7 @@ console.log(categoryData)
                           {token&&
                           <button onClick={() => handleCharacterClick(category)}>Start Review</button>}
                            {selectedCharacter && selectedCharacter.id === category.id && (
-                  <ReviewForm selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview} />
+                  <ReviewForm charId={selectedCharacter.id} userId={userId} token={token}selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview} />
                 )}
                         </div>
                       </li>

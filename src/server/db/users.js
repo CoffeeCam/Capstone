@@ -70,7 +70,7 @@ async function getUserById(userId) {
 async function getAllUser(){
     try{
       const {rows}= await db.query(`
-      SELECT * FROM users;
+      SELECT id,email,house FROM users;
       `);
       return rows;
     }catch(error){

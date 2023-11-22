@@ -45,6 +45,7 @@ usersRouter.post('/login', async(req, res, next) => {
             });
 
             res.send({
+                user,
                 message: 'Login successful!',
                 token
             });

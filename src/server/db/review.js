@@ -1,19 +1,24 @@
+const { newError } = require('wd/lib/utils');
 const db = require('./client');
 const util=require('./util');
 
 const createReview=async({charId,creatorId,rating,review})=>{
     try {
-        const { rows: [char ] } = await db.query(`
+      
+      const { rows: [char ] } = await db.query(`
         INSERT INTO reviews(charId,creatorId,rating,review)
         VALUES($1, $2, $3, $4)
        
         RETURNING *`, [charId,creatorId,rating,review]);
 
         return char;
+      
+    
     } catch (err) {
         throw err;
     }
 }
+
 async function updateReview({id,...fields}){
   try{
       const toupdate={};
@@ -58,6 +63,16 @@ async function getAllReview(){
         throw error;
       }
 }
+async function getReviewCharIdCreatorId(charId,creatorId){
+  try{
+      const {rows}= await db.query(`
+      SELECT id FROM reviews where charId = $1 and creatorId = $2;
+      `,[charId,creatorId]);
+      return rows;
+    }catch(error){
+      throw error;
+    }
+}
 async function getReviewById(id){
   try{
       const {rows: [review]} = await db.query(`
@@ -73,7 +88,7 @@ async function getReviewById(id){
 async function getReviewBycharId(id){
     try{
         const {rows}= await db.query(`
-        SELECT * FROM reviews WHERE charId = $1
+        SELECT * FROM reviews WHERE charId = $1 
         `, [id]);
         return rows;
       }catch(error){
@@ -99,5 +114,6 @@ module.exports = {
     getAllReview,
     getReviewBycharId,
     getRatingBycharId,
-    getReviewById
+    getReviewById,
+    getReviewCharIdCreatorId
  };

@@ -11,6 +11,7 @@ import { Routes, Route } from 'react-router-dom';
 const App = () => {
   const [isDarkMode, setDarkMode] = useState(false);
   const [token,setToken]=useState(null);
+  const [userId,setUserId]=useState(null);
   useEffect(() => {
     document.body.classList.toggle('dark-mode', isDarkMode);
     document.body.classList.toggle('light-mode', !isDarkMode);
@@ -28,10 +29,10 @@ const App = () => {
         Switch to {isDarkMode ? 'Light' : 'Dark'} Mode
         </button>
         <Routes>
-          <Route path='/' element={<HomeTest token={token} setToken={setToken}/>} />
+          <Route path='/' element={<HomeTest token={token} setToken={setToken} userId={userId}/>} />
           <Route path='/signup' element={<SignupPage token={token} setToken={setToken}/>} />
-           <Route path='/login' element={<Login token={token} setToken={setToken}/>} />
-           <Route path='/logout' element={<Logout token={token} setToken={setToken}/>} />
+           <Route path='/login' element={<Login token={token} setToken={setToken} userId={userId} setUserId={setUserId}/>} />
+           <Route path='/logout' element={<Logout token={token} setToken={setToken} setUserId={setUserId}/>} />
         </Routes>
       </div>
     </div>
