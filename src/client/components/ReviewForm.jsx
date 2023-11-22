@@ -19,7 +19,7 @@ const gradeOptions = [
 ];
 
 function ReviewForm() {
-  const [name, setName] = useState('');
+  
   const [grade, setGrade] = useState('');
   const [writtenReview, setWrittenReview] = useState('');
 
@@ -30,7 +30,7 @@ function ReviewForm() {
     console.log('Review submitted:', { name, grade, writtenReview });
 
     // Reset the form fields after submission
-    setName('');
+   
     setGrade('');
     setWrittenReview('');
   };
@@ -40,14 +40,8 @@ function ReviewForm() {
       <h2>Submit a Review</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+          
+          
         </div>
         <div>
           <label>Grade:</label>

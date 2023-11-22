@@ -3,13 +3,12 @@ import Login from './Login.jsx';
 import NavLinks from './NavLinks.jsx';
 import { Link } from 'react-router-dom';
 
-const NavBar = () => {
+const NavBar = ({token}) => {
   return (
     <>
     <div className="navbar">
       <h1>Hogwarts Rank-a-Thon</h1>
-      
-      <Login />
+      {(token)?(<Link to="/logout"> Logout</Link>):(<Link to="/login"> Login</Link>)}
     </div>
     <div>
       <NavLinks />

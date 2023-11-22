@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ReviewForm from './ReviewForm';
 
-const HomeTest = () => {
+const HomeTest = ({token,setToken}) => {
   const [categoryList, setCategoryList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
-
+  
 
   useEffect(() => {
     fetchDataForCategory('Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin');
@@ -117,8 +117,11 @@ console.log(categoryData)
                           {category.firstname} {category.lastname} <br/>
                           {category.role} <br/> 
                           {category.summary} <br/>
-                          <button onClick={() => handleCharacterClick(category)}>Start Review</button>
-                          {selectedCharacter && selectedCharacter.id === category.id && (
+                          
+                         
+                          {token&&
+                          <button onClick={() => handleCharacterClick(category)}>Start Review</button>}
+                           {selectedCharacter && selectedCharacter.id === category.id && (
                   <ReviewForm selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview} />
                 )}
                         </div>
