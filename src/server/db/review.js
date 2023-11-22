@@ -19,6 +19,26 @@ const createReview=async({charId,creatorId,rating,review})=>{
     }
 }
 
+async function getReviewDetailsByCharId(charId){
+  try{
+      const {rows:reviewDetails}= await db.query(`
+      SELECT reviews.id,users.email,users.house,reviews.review,reviews.rating FROM reviews JOIN users ON reviews.creatorId=users.id WHERE charId=$1;
+      `,[charId]);
+      return reviewDetails;
+    }catch(error){
+      throw error;
+    }
+}
+async function getReviewDetailsByCreatorId(creatorId){
+  try{
+      const {rows : reviewDetails}= await db.query(`
+      SELECT * FROM reviews join character on reviews.charId=character.id WHERE creatorId = $1;
+      `,[creatorId]);
+      return reviewDetails;
+    }catch(error){
+      throw error;
+    }
+}
 async function updateReview({id,...fields}){
   try{
       const toupdate={};
@@ -115,5 +135,7 @@ module.exports = {
     getReviewBycharId,
     getRatingBycharId,
     getReviewById,
-    getReviewCharIdCreatorId
+    getReviewCharIdCreatorId,
+    getReviewDetailsByCharId,
+    getReviewDetailsByCreatorId
  };

@@ -2,7 +2,7 @@ const express = require('express')
 const reviewsRouter = express.Router();
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET = 'neverTell' } = process.env;
-const {createReview,getAllReview, getReviewBycharId,getRatingBycharId,updateReview,getReviewById,getReviewCharIdCreatorId}=require('../db/review');
+const {createReview,getAllReview,getRatingBycharId,updateReview,getReviewById,getReviewCharIdCreatorId,getReviewDetailsByCharId,getReviewDetailsByCreatorId}=require('../db/review');
 const { requiredNotSent}=require('./utils');
 
 reviewsRouter.post('/createReview',async(req,res,next)=>{
@@ -61,8 +61,9 @@ reviewsRouter.get('/rating/:charId',async(req,res,next)=>{
 reviewsRouter.get('/review/:charId',async(req,res,next)=>{
     try{
      const {charId}=req.params;
-     const rating=await getReviewBycharId(charId);
-     res.send(rating);
+     const id=parseInt(charId);
+     const reviews=await getReviewDetailsByCharId(id);
+     res.send(reviews);
     }catch(error){
      next(error);
     }
@@ -80,9 +81,8 @@ reviewsRouter.get('/review/:charId',async(req,res,next)=>{
         });
     }
    
-       const isReviewPresent=await getReviewCharIdCreatorId(char,creator);
-       const len=Object.keys(isReviewPresent).length 
-       res.send(isReviewPresent);
+       const userReviews=await getReviewCharIdCreatorId(char,creator);
+       res.send(userReviews);
        
 
       
@@ -90,6 +90,22 @@ reviewsRouter.get('/review/:charId',async(req,res,next)=>{
      next(error);
     }
  })
+ reviewsRouter.get('/user/:creatorId',async(req,res,next)=>{
+    try{
+    const {creatorId}=req.params;
+       const creator=parseInt(creatorId);
+       const userReviews=await getReviewDetailsByCreatorId(creator);
+       
+       res.send(userReviews);
+       
+
+      
+    }catch(error){
+     next(error);
+    }
+ })
+
+ 
  reviewsRouter.patch('/:reviewId',requiredNotSent({requiredParams: ['rating', 'review'], atLeastOne: true}),async(req,res,next)=>{
    
     try{

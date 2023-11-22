@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ReviewForm from './ReviewForm';
+import { Navigate, useNavigate } from "react-router-dom";
 
 const HomeTest = ({token,userId}) => {
+  const navigate=useNavigate();
   const [categoryList, setCategoryList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
@@ -63,6 +65,10 @@ console.log(categoryData)
     console.log('Review submitted:', reviewData);
   };
 
+  const navToCharacterDetails=async(id)=>{
+    navigate(`/character/${id}`);
+    }
+
   return (
     <div>
       <div className="main-content">
@@ -117,7 +123,8 @@ console.log(categoryData)
                           {category.firstname} {category.lastname} <br/>
                           {category.role} <br/> 
                           {category.summary} <br/>
-                          
+
+                          <button onClick={()=>{navToCharacterDetails(category.id)}}>see details</button>
                          
                           {token&&
                           <button onClick={() => handleCharacterClick(category)}>Start Review</button>}
