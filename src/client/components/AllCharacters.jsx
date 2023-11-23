@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ReviewForm from './ReviewForm';
+import { Navigate, useNavigate } from "react-router-dom";
 
-const AllCharacters = () => {
+const AllCharacters = ({token,userId}) => {
+  const navigate=useNavigate();
   const [categoryLists, setCategoryLists] = useState({
     Gryffindor: [],
     Hufflepuff: [],
@@ -72,6 +74,9 @@ const AllCharacters = () => {
     console.log('Review submitted:', reviewData);
     // Logic to handle submitting the review
   };
+  const navToCharacterDetails=async(id)=>{
+    navigate(`/character/${id}`);
+    }
 
   return (
     <div>
@@ -106,11 +111,12 @@ const AllCharacters = () => {
                 <p className="charname">{character.firstname} {character.lastname}</p>
                 <p className="charrole">{character.role}</p>
                 <p>{character.summary}</p>
-                <button onClick={() => handleCharacterClick(character)}>Write a Review</button>
+                <button onClick={()=>{navToCharacterDetails(character.id)}}>see details</button>
+                {token&&
+                <button onClick={() => handleCharacterClick(character)}>Write a Review</button>}
                 {selectedCharacter && selectedCharacter.id === character.id && (
                   <ReviewForm
-                    selectedCharacter={selectedCharacter}
-                    onSubmitReview={handleSubmitReview}
+                  charId={selectedCharacter.id} userId={userId} token={token} selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview}
                   />
                 )}
               </div>

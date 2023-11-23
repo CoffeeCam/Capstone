@@ -26,7 +26,7 @@ const App = () => {
 
   return (
     <div>
-      <NavBar token={token}/>
+      <NavBar token={token} userId={userId}/>
       <div className={`app-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
       
       <div className="search-toggle-container">
@@ -41,12 +41,12 @@ const App = () => {
       </div>
         <Routes>
           <Route path='/' element={<HomeTest token={token} setToken={setToken} userId={userId}/>} />
-          <Route path='/signup' element={<SignupPage token={token} setToken={setToken}/>} />
+          <Route path='/signup' element={<SignupPage token={token} setToken={setToken} userId={userId} setUserId={setUserId}/>} />
            <Route path='/login' element={<Login token={token} setToken={setToken} userId={userId} setUserId={setUserId}/>} />
            <Route path='/me' element={<Me userId={userId} setUserId={setUserId}/>} />
            <Route path='/logout' element={<Logout token={token} setToken={setToken} setUserId={setUserId}/>} />
            <Route path="/character/:id" element={<SelectedCharacter/>}/>
-           <Route path='/characters' element={<AllCharacters token={token} setToken={setToken} setUserId={setUserId}/>} />
+           <Route path='/characters' element={<AllCharacters token={token} setToken={setToken} setUserId={setUserId} userId={userId}/>} />
         </Routes>
       </div>
     </div>

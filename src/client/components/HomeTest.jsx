@@ -136,7 +136,7 @@ console.log(categoryData)
                          <button onClick={() => handleCharacterClick(category)}>Start Review</button>}
 
                 {selectedCharacter && selectedCharacter.id === category.id && (
-                  <ReviewForm selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview} />
+                  <ReviewForm charId={selectedCharacter.id} userId={userId} token={token}selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview}/>
                 )}
               </div>
                         </div>
