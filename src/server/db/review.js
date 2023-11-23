@@ -1,4 +1,4 @@
-const { newError } = require('wd/lib/utils');
+
 const db = require('./client');
 const util=require('./util');
 

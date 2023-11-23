@@ -46,7 +46,7 @@ const App = () => {
            <Route path='/me' element={<Me userId={userId} setUserId={setUserId}/>} />
            <Route path='/logout' element={<Logout token={token} setToken={setToken} setUserId={setUserId}/>} />
            <Route path="/character/:id" element={<SelectedCharacter/>}/>
-           <Route path='/characters' element={<AllCharacters />} />
+           <Route path='/characters' element={<AllCharacters token={token} setToken={setToken} setUserId={setUserId}/>} />
         </Routes>
       </div>
     </div>
