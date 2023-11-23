@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 export default function Me({userId}){
     const [reviews,setReviews]=useState([]);
-    const [revId,setRevId]=useState();
+   
    useEffect(()=>{
     console.log(userId);
     const reviewCreatedByUser=async()=>{
