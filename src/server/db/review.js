@@ -1,4 +1,4 @@
-const { newError } = require('wd/lib/utils');
+
 const db = require('./client');
 const util=require('./util');
 
@@ -32,7 +32,7 @@ async function getReviewDetailsByCharId(charId){
 async function getReviewDetailsByCreatorId(creatorId){
   try{
       const {rows : reviewDetails}= await db.query(`
-      SELECT * FROM reviews join character on reviews.charId=character.id WHERE creatorId = $1;
+      SELECT reviews.id,reviews.rating,reviews.review,character.firstname,character.lastname,character.house FROM reviews join character on reviews.charId=character.id WHERE creatorId = $1;
       `,[creatorId]);
       return reviewDetails;
     }catch(error){

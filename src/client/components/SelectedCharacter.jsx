@@ -44,12 +44,12 @@ export default function SelectedCharacter(){
       
     
   return(
-    <div className="main-content">
-        <p>Character Name :  {charDetails.firstname} {charDetails.lastname}</p>
-        <p>Gender: {charDetails.sex}</p>
-        <p>House: {charDetails.house}</p>
-        <p>Role: {charDetails.role}</p>
-        <p>Summary: {charDetails.summary}</p>
+    <div >
+        <p className="charname">Character Name :  {charDetails.firstname} {charDetails.lastname}</p>
+        <p >Gender: {charDetails.sex}</p>
+        <p >House: {charDetails.house}</p>
+        <p >Role: {charDetails.role}</p>
+        <p >Summary: {charDetails.summary}</p>
         <img src={charDetails.image} alt="characterImage" width={250} height={250}/>
         <p>
 

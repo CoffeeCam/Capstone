@@ -35,6 +35,7 @@ function SignupPage({token,setToken}) {
         if (response.ok) {
           const data = await response.json();
           console.log('Registration successful!', data);
+         
           setToken(data.token);
           setIsRegistrationSuccessful(true);
   setSuccessMessage(`Registration successful! You have been sorted into ${selectedHouse}.`);

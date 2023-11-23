@@ -5,7 +5,7 @@ const SALT_COUNT = 10;
 const createUser = async({  email, password , house}) => {
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
     try {
-        const { rows: [user ] } = await db.query(`
+        const { rows: user  } = await db.query(`
         INSERT INTO users(email, password,house)
         VALUES($1, $2, $3)
         ON CONFLICT (email) DO NOTHING
