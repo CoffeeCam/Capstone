@@ -8,7 +8,7 @@ const HomeTest = ({token,userId}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
-  
+  const [currentCategory, setCurrentCategory] = useState(null);
 
   useEffect(() => {
     fetchDataForCategory('Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin');
@@ -71,10 +71,10 @@ console.log(categoryData)
 
   return (
     <div>
-      <div className="main-content">
-        <h2>Main Content</h2>
+
+   
+      <div>
         <div>
-        <h2>Search Bar</h2>
         <input
           type="text"
           placeholder="Search for a character"
@@ -83,13 +83,14 @@ console.log(categoryData)
         />
         <button onClick={handleSearch}>Search</button>
       </div>
+      <div className="main-content">
         <div>
           <img
             src="./src/client/assets/gryffindor/crest-gryffindor.png"
             alt="Gryffindor"
             onClick={() => fetchDataForCategory('Gryffindor')}
           />
-        </div>
+      </div>
         <div>
           <img
             src="./src/client/assets/hufflepuff/crest-hufflepuff.png"
@@ -111,26 +112,33 @@ console.log(categoryData)
             onClick={() => fetchDataForCategory('Slytherin')}
           />
         </div>
-      </div>
-      <div>
-        <h2>Category List</h2>
-          <ul>
+        </div>
+      
+     
+      <div className="house">
+  {currentCategory && <h2>{currentCategory}</h2>}
+</div>
+          <ul className="listings">
             {categoryList.map((category) => {
               console.log('here2')
-              return <li key={category.id}>
-                        <div>
-                          <img src={category.image}/> <br/> 
-                          {category.firstname} {category.lastname} <br/>
-                          {category.role} <br/> 
-                          {category.summary} <br/>
-
-                          <button onClick={()=>{navToCharacterDetails(category.id)}}>see details</button>
+              return <li key={category.id} className="listing-item">
+                        <div className="listing-content">
+                          <img src={category.image}
+                          alt={`${category.firstname} ${category.lastname}`}
+                          className="character-image"/> <br/> 
+                                      <div className="character-details">
+                <p className="charname">{category.firstname} {category.lastname}</p>
+                <p className="charrole">{category.role}</p>
+                <p>{category.summary}</p>
+                <button onClick={()=>{navToCharacterDetails(category.id)}}>see details</button>
                          
-                          {token&&
-                          <button onClick={() => handleCharacterClick(category)}>Start Review</button>}
-                           {selectedCharacter && selectedCharacter.id === category.id && (
-                  <ReviewForm charId={selectedCharacter.id} userId={userId} token={token}selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview} />
+                         {token&&
+                         <button onClick={() => handleCharacterClick(category)}>Start Review</button>}
+
+                {selectedCharacter && selectedCharacter.id === category.id && (
+                  <ReviewForm selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview} />
                 )}
+              </div>
                         </div>
                       </li>
             })}

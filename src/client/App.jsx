@@ -9,7 +9,7 @@ import SignupPage from '/src/client/components/SignupPage.jsx';
 import Me from './components/me.jsx';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-
+import AllCharacters from '/src/client/components/AllCharacters.jsx';
 
 const App = () => {
   const [isDarkMode, setDarkMode] = useState(false);
@@ -27,10 +27,18 @@ const App = () => {
   return (
     <div>
       <NavBar token={token}/>
-      <div className={`main-content ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
-        <button onClick={toggleDarkMode}>
-        Switch to {isDarkMode ? 'Light' : 'Dark'} Mode
-        </button>
+      <div className={`app-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
+      
+      <div className="search-toggle-container">
+        <div className="search-form">
+          {/* Search Form JSX */}
+        </div>
+        <div className="dark-mode-toggle">
+          <button onClick={toggleDarkMode}>
+            Switch to {isDarkMode ? 'Light' : 'Dark'} Mode
+          </button>
+        </div>
+      </div>
         <Routes>
           <Route path='/' element={<HomeTest token={token} setToken={setToken} userId={userId}/>} />
           <Route path='/signup' element={<SignupPage token={token} setToken={setToken}/>} />
@@ -38,6 +46,7 @@ const App = () => {
            <Route path='/me' element={<Me userId={userId} setUserId={setUserId}/>} />
            <Route path='/logout' element={<Logout token={token} setToken={setToken} setUserId={setUserId}/>} />
            <Route path="/character/:id" element={<SelectedCharacter/>}/>
+           <Route path='/characters' element={<AllCharacters />} />
         </Routes>
       </div>
     </div>
