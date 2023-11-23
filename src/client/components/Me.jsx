@@ -26,14 +26,13 @@ export default function Me({userId}){
        const result=await response.json();
        console.log(result);
        setReviews(result);
-       
     }catch(error){
        console.log(error);
     }
 }
    
 const editReview=async(id)=>{
-
+      
    }
    return(
     <div> 

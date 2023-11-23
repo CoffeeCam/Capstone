@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 function SignupPage({token,setToken}) {
     // State variables to store user input
+    const [name,setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -26,6 +27,7 @@ function SignupPage({token,setToken}) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
+            name:`${name}`,
             email:  `${email}`,
             password:  `${password}`,
             house:  `${selectedHouse}`,
@@ -63,6 +65,17 @@ function SignupPage({token,setToken}) {
           {successMessage && <div style={{ color: 'green', fontWeight: 600, marginBottom: '10px' }}>{successMessage}</div>}
           
           <form onSubmit={handleSignup}>
+          <div style={{ marginBottom: '10px' }}>
+              <label htmlFor="textInput"style={{ display: 'block' }}>Name:&nbsp;</label>
+              <input
+                type="text"
+                id="name"
+                placeholder="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
           <div style={{ marginBottom: '10px' }}>
               <label htmlFor="email" style={{ display: 'block' }}>Email:&nbsp;</label>
               <input

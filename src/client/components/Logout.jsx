@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-const Logout = ({token,setToken}) => {
+const Logout = ({setToken,setUserId}) => {
  setToken(null);
+ setUserId(null);
 }
 export default Logout;

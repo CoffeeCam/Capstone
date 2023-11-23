@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Login = ({token,setToken,setUserId}) => {
+const Login = ({token,setToken,setUserId,setIsAdmin,isAdmin}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigateTo = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -40,11 +42,15 @@ const Login = ({token,setToken,setUserId}) => {
         console.log(data.user);
         const userId=data.user.id;
         console.log(data.user.id);
+        console.log(data.user.isadmin);
         setToken(token);
+        setIsAdmin(data.user.isadmin);
         setUserId(userId);
         setSuccessMessage(data.message);
         setErrorMessage('');
         setIsLoggedIn(true);
+          navigateTo('/')
+       
       } else {
         const errorMessage = await response.text();
         try {
