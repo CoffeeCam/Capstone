@@ -64,10 +64,11 @@ async function updateReview({id,...fields}){
 
 async function deleteReview(id){
     try{
-        const {rows: [name]} = await db.query(`
-        DELETE * FROM reviews
+        const {rows} = await db.query(`
+        DELETE  FROM reviews
         WHERE id = $1
       `, [id]);
+      return rows;
     }
     catch(error){
         throw error;

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 export default function Me({userId}){
     const [reviews,setReviews]=useState([]);
+    const [revId,setRevId]=useState();
    useEffect(()=>{
     console.log(userId);
     const reviewCreatedByUser=async()=>{
@@ -17,7 +18,17 @@ export default function Me({userId}){
     }
     reviewCreatedByUser();
    },[]);
+   const deleteReview=async(id)=>{
+    console.log(id);
+      const response=await fetch(`http://localhost:3000/api/reviews/${id}`,{
+      method:'DELETE'
+    });
+  
+   console.log(response.status);
+   }
+   const editReview=async(id)=>{
 
+   }
    return(
     <div> 
         <h3> about user</h3>
@@ -28,8 +39,8 @@ export default function Me({userId}){
             <p >rating:{r.rating} </p>
             <p >review:{r.review}
           </p>
-           <button>delete review</button>
-           <button>update review</button>
+           <button onClick={()=>{deleteReview(r.id)}}>delete review</button>
+           <button onClick={()=>{editReview(r.id)}}>update review</button>
             </li>
         ))}
     </div>

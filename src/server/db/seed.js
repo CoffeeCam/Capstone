@@ -90,7 +90,7 @@ const createTables = async () => {
         id SERIAL PRIMARY KEY, 
         charId INTEGER REFERENCES character(id) NOT NULL,
         creatorId INTEGER REFERENCES users(id) NOT NULL,
-        rating CHAR(1) NOT NULL, 
+        rating CHAR(3) NOT NULL, 
         review TEXT NOT NULL
       );
     `)
@@ -169,8 +169,8 @@ async function createInitialReviews() {
       {creatorId:2, characterId:1 , rating: 'A', review: 'demo demo'},
       {creatorId:1, characterId:1 , rating:'B',  review:'demo demo'},
       {creatorId:3, characterId:1 , rating: 'A',   review:'demo demo'},
-      {creatorId:1, characterId:1 , rating:'B',  review:'demo demo'},
-      {creatorId:1, characterId:1 , rating:'B',  review:'demo demo'},
+      {creatorId:4, characterId:1 , rating:'B',  review:'demo demo'},
+      {creatorId:5, characterId:1 , rating:'B',  review:'demo demo'},
       
     ]
     for (const review of reviews) {
