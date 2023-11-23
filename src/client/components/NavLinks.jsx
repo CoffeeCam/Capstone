@@ -8,6 +8,8 @@ const NavLinks = () => {
           <Link to="/">HOME</Link>
           <span className="separator"></span>
           <Link to="/signup">CREATE AN ACCOUNT</Link>
+          <span className="separator"></span>
+          <Link to="/characters">ALL CHARACTERS</Link>
         </nav>
       );
     };
