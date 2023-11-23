@@ -36,47 +36,51 @@ function ReviewForm() {
   };
 
   return (
-    <div>
-      <h2>Submit a Review</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Grade:</label>
-          {gradeOptions.map((option) => (
-            <div key={option.label}>
-              <input
-                type="radio"
-                id={option.label}
-                name="grade"
-                value={option.label}
-                checked={grade === option.label}
-                onChange={(e) => setGrade(e.target.value)}
-              />
-              <label htmlFor={option.label}>{option.label}</label>
+    <>
+      <div>
+        <h2>Submit a Review</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Grade:</label>
+            <div className="radio-group">
+              {gradeOptions.map((option) => (
+                <div key={option.label}>
+                  <input
+                    type="radio"
+                    id={option.label}
+                    name="grade"
+                    value={option.label}
+                    checked={grade === option.label}
+                    onChange={(e) => setGrade(e.target.value)}
+                  />
+                  <label htmlFor={option.label}>{option.label}</label>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <div>
-          <label htmlFor="writtenReview">Written Review:</label>
-          <textarea
-            id="writtenReview"
-            value={writtenReview}
-            onChange={(e) => setWrittenReview(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Submit Review</button>
-      </form>
-    </div>
+          </div>
+          <div>
+            <label htmlFor="writtenReview">Written Review:</label>
+            <textarea
+              id="writtenReview"
+              value={writtenReview}
+              onChange={(e) => setWrittenReview(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit">Submit Review</button>
+        </form>
+      </div>
+    </>
   );
 }
 

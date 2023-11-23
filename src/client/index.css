@@ -105,10 +105,13 @@
 /* END NAV */
 
 .main-content {
+  display: flex;
+  justify-content: center; /* To center the main content */
+  align-items: center; /* To center vertically */
   flex-grow: 1; /* Takes up remaining vertical space */
  
   padding: 1rem;
-  min-height: 100vh;
+  height: 50vh;
 }
 
 a {
@@ -226,16 +229,7 @@ input[type="email"] {
   cursor: pointer;
 }
 
-.category-list {
-  display: flex;
-  flex-wrap: wrap;
-}
 
-.category-item {
-  width: 25%;
-  text-align: center;
-  padding: 10px;
-}
 /* END HOME PAGE IMAGE DISPLAY */
 
 /* BEGIN GRADE STYLE */
@@ -246,3 +240,73 @@ input[type="email"] {
   color: #2d004d;
 } 
 /* END GRADE STYLE */
+
+
+/* ReviewForm */
+
+.radio-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  flex-wrap: wrap; /* To allow wrapping of radio buttons */
+  gap: 10px;
+}
+
+/* ReviewForm */
+
+.house {
+  font-size: 2em;
+  line-height: 1.1;
+  font-family: "baroque-text-jf";
+} 
+
+.listings {
+  list-style: none;
+  padding: 0;
+}
+
+.listing-item {
+  border-bottom: 1px solid #737070;
+  margin: 30px;
+  padding-bottom: 0px;
+}
+
+.character-details {
+  text-align: left;
+  margin-top:-30px;
+}
+
+.listing-content {
+  display: flex;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.character-image {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  margin-right: 20px;
+  object-position: center;
+}
+
+.charname {
+  font-weight:600;
+  font-size: 1.5em;
+}
+
+.charrole {
+  text-transform:uppercase;
+  margin-top:-30px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .main-content {
+    display: block; /* Display images as block on mobile */
+    width: 100%; /* Make images take up full width */
+    margin-bottom: 10px; /* Add spacing between images */
+  }
+}
+
