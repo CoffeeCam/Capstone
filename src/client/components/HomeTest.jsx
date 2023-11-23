@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ReviewForm from './ReviewForm';
+import { Navigate, useNavigate } from "react-router-dom";
 
-const HomeTest = () => {
+const HomeTest = ({token,userId}) => {
+  const navigate=useNavigate();
   const [categoryList, setCategoryList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(null);
-  
-
 
   useEffect(() => {
     fetchDataForCategory('Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin');
@@ -18,17 +18,18 @@ const HomeTest = () => {
     setLoading(true);
     try {
       const response = await fetch(`http://localhost:3000/api/characters/searchCharacter?house=${selectedCategory}`);
+      console.log(response)
       const categoryData = await response.json();
-  
+console.log(categoryData)
       if (response.ok) {
         setCategoryList(categoryData['chars']);
-        setCurrentCategory(selectedCategory); // Set the current category
       } else {
         console.error('Failed to fetch category data');
       }
     } catch (error) {
       console.error('Error fetching category data:', error);
     } finally {
+      console.log(categoryList)
       setLoading(false);
     }
   };
@@ -64,8 +65,11 @@ const HomeTest = () => {
     console.log('Review submitted:', reviewData);
   };
 
+  const navToCharacterDetails=async(id)=>{
+    navigate(`/character/${id}`);
+    }
+
   return (
-    
     <div>
 
    
@@ -126,7 +130,11 @@ const HomeTest = () => {
                 <p className="charname">{category.firstname} {category.lastname}</p>
                 <p className="charrole">{category.role}</p>
                 <p>{category.summary}</p>
-                <button onClick={() => handleCharacterClick(category)}>Write a Review</button>
+                <button onClick={()=>{navToCharacterDetails(category.id)}}>see details</button>
+                         
+                         {token&&
+                         <button onClick={() => handleCharacterClick(category)}>Start Review</button>}
+
                 {selectedCharacter && selectedCharacter.id === category.id && (
                   <ReviewForm selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview} />
                 )}

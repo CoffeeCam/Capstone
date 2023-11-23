@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Login = () => {
+const Login = ({token,setToken,setUserId}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -34,7 +34,14 @@ const Login = () => {
 
       if (response.ok) {
         const data = await response.json();
+        console.log( data);
         console.log('Login successful!', data.message);
+        const token=data.token;
+        console.log(data.user);
+        const userId=data.user.id;
+        console.log(data.user.id);
+        setToken(token);
+        setUserId(userId);
         setSuccessMessage(data.message);
         setErrorMessage('');
         setIsLoggedIn(true);
@@ -63,6 +70,8 @@ const Login = () => {
     setSuccessMessage('');
     setUsername('');
     setPassword('');
+    localStorage.setItem('token',null);
+    
   };
 
   return (

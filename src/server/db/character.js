@@ -27,6 +27,17 @@ async function getCharacterByName(firstname){
     }
   }
 
+  async function getCharacterById(id){
+    try {
+      const {rows:[character]} = await db.query(`
+        SELECT * FROM character
+        WHERE id = $1
+      `, [id]);
+      return character;
+    } catch (error) {
+      throw error;
+    }
+  }
   async function getCharacterByHouse(house){
     try {
       const {rows: characters} = await db.query(`
@@ -102,6 +113,7 @@ module.exports = {
    getAllCharacter,
    deleteCharacter,
    getCharacterByHouse,
-   updateCharacter
+   updateCharacter,
+   getCharacterById
 
 };

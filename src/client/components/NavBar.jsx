@@ -2,14 +2,15 @@ import React from 'react';
 import Login from './Login.jsx';
 import NavLinks from './NavLinks.jsx';
 import { Link } from 'react-router-dom';
-
-const NavBar = () => {
+import Me from './me.jsx';
+const NavBar = ({token}) => {
   return (
     <>
     <div className="navbar">
       <h1>Hogwarts Rank-a-Thon</h1>
       
-      <Login />
+    {(token)?(<Link to="/logout"> Logout</Link>):(<Link to="/login"> Login</Link>)}
+    {token &&<Link to="/me">User</Link>}
     </div>
     <div>
       <NavLinks />
