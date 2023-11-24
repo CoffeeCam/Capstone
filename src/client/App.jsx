@@ -6,6 +6,7 @@ import Login from './components/Login.jsx';
 import Logout from './components/Logout.jsx';
 import SelectedCharacter from './components/selectedCharacter.jsx';
 import SignupPage from '/src/client/components/SignupPage.jsx';
+import AllUser from './components/AllUser.jsx';
 import Me from './components/me.jsx';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
@@ -27,7 +28,7 @@ const App = () => {
 
   return (
     <div>
-      <NavBar token={token} userId={userId}/>
+      <NavBar isAdmin={isAdmin} userId={userId}/>
       <div className={`app-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
       
       <div className="search-toggle-container">
@@ -48,6 +49,7 @@ const App = () => {
            <Route path='/logout' element={<Logout setToken={setToken} setIsAdmin={setIsAdmin}token={token} setUserId={setUserId}/>} />
            <Route path="/character/:id" element={<SelectedCharacter  isAdmin={isAdmin}/>} />
            <Route path='/characters' element={<AllCharacters token={token} setToken={setToken} setUserId={setUserId} userId={userId} isAdmin={isAdmin}/>} />
+           <Route path='/allUser' element={<AllUser userId={userId} setUserId={setUserId} isAdmin={isAdmin}/>} />
         </Routes>
       </div>
     </div>
