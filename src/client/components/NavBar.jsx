@@ -9,8 +9,8 @@ const NavBar = ({token,userId}) => {
     <div className="navbar">
       <h1>Hogwarts Rank-a-Thon</h1>
       
-    {(token)?(<Link to="/logout"> Logout</Link>):(<Link to="/login"> Login</Link>)}
-    {userId &&<Link to="/me">User</Link>}
+    {(token)?(<Link to="/logout"> <button>Logout</button></Link>):(<Link to="/login"> <button>Login</button></Link>)}
+    {userId &&<Link to="/me"><button>User</button></Link>}
     </div>
     <div>
       <NavLinks />

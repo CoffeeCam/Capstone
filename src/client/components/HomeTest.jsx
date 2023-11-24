@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReviewForm from './ReviewForm';
 import { Navigate, useNavigate } from "react-router-dom";
 
-const HomeTest = ({token,userId}) => {
+const HomeTest = ({token,userId,isAdmin}) => {
   const navigate=useNavigate();
   const [categoryList, setCategoryList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -134,6 +134,8 @@ console.log(categoryData)
                          
                          {token&&
                          <button onClick={() => handleCharacterClick(category)}>Start Review</button>}
+                         {isAdmin &&<button> Delete</button>}
+                         {isAdmin &&<button> Update</button>}
 
                 {selectedCharacter && selectedCharacter.id === category.id && (
                   <ReviewForm charId={selectedCharacter.id} userId={userId} token={token}selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview}/>

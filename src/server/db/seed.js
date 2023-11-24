@@ -6,36 +6,57 @@ const {createAdminUser}=require('./admin');
 
 const users = [
   {
-   
+    name:'emily',
     email: 'emily@example.com',
     password: 'securepass',
     house: 'Gryffindor',
   },
   {
-    
+    name:'liu',
     email: 'liu@example.com',
     password: 'strongpass',
     house:'Gryffindor',
   },
   {
-   
+    name:'bella',
     email: 'bella@example.com',
     password: 'pass1234',
     house:'Slytherin',
   },
   {
-   
+    name:'mohammed',
     email: 'mohammed@example.com',
     password: 'mysecretpassword',
     house:'Slytherin',
   },
   {
-    
+    name:'john',
     email: 'john@example.com',
     password: 'password123',
     house:'Hufflepuff',
   },
-  // Add more user objects as needed
+  {
+    name:'kalpana',
+    email:'kalpravi1989@gmail.com',
+    password:'kalp1234',
+    house:'hufflepuff',
+    isAdmin:true,
+  },
+  {
+    name:'Barbara' ,
+    email:'bzkondracki@gmail.com', 
+    password:'bar123',
+    house:'Gryffindor',
+    isAdmin:true,
+  },
+  {
+    name:'Cameron' ,
+    email:'cameron93malone@gmail.com', 
+    password:'cam123',
+    house:'Gryffindor',
+    isAdmin:true,
+  },
+
 ];  
 
 const dropTables = async () => {
@@ -60,9 +81,11 @@ const createTables = async () => {
         await db.query(`
         CREATE TABLE users(
             id SERIAL PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
             email VARCHAR(255) UNIQUE NOT NULL,
             password VARCHAR(255) NOT NULL,
-            house VARCHAR(255) NOT NULL
+            house VARCHAR(255) NOT NULL,
+            isAdmin BOOLEAN DEFAULT FALSE 
         );
         `)
         await  db.query(`
@@ -105,7 +128,7 @@ const createTables = async () => {
 const createInitialUsers = async () => {
   try {
     for (const user of users) {
-      await createUser({ email: user.email, password: user.password,house: user.house});
+      await createUser({ name:user.name,email: user.email, password: user.password,house: user.house,isAdmin:user.isAdmin});
     }
     console.log('Seed user data inserted successfully.');
   } catch (error) {

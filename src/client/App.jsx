@@ -15,6 +15,7 @@ const App = () => {
   const [isDarkMode, setDarkMode] = useState(false);
   const [token,setToken]=useState(null);
   const [userId,setUserId]=useState(null);
+  const [isAdmin,setIsAdmin]=useState(false);
   useEffect(() => {
     document.body.classList.toggle('dark-mode', isDarkMode);
     document.body.classList.toggle('light-mode', !isDarkMode);
@@ -40,13 +41,13 @@ const App = () => {
         </div>
       </div>
         <Routes>
-          <Route path='/' element={<HomeTest token={token} setToken={setToken} userId={userId}/>} />
+          <Route path='/' element={<HomeTest token={token} setToken={setToken} userId={userId} isAdmin={isAdmin}/>} />
           <Route path='/signup' element={<SignupPage token={token} setToken={setToken} userId={userId} setUserId={setUserId}/>} />
-           <Route path='/login' element={<Login token={token} setToken={setToken} userId={userId} setUserId={setUserId}/>} />
+           <Route path='/login' element={<Login token={token} setToken={setToken} userId={userId} setUserId={setUserId} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>} />
            <Route path='/me' element={<Me userId={userId} setUserId={setUserId}/>} />
-           <Route path='/logout' element={<Logout token={token} setToken={setToken} setUserId={setUserId}/>} />
-           <Route path="/character/:id" element={<SelectedCharacter/>}/>
-           <Route path='/characters' element={<AllCharacters token={token} setToken={setToken} setUserId={setUserId} userId={userId}/>} />
+           <Route path='/logout' element={<Logout setToken={setToken} setIsAdmin={setIsAdmin}token={token} setUserId={setUserId}/>} />
+           <Route path="/character/:id" element={<SelectedCharacter/>} isAdmin={isAdmin}/>
+           <Route path='/characters' element={<AllCharacters token={token} setToken={setToken} setUserId={setUserId} userId={userId} isAdmin={isAdmin}/>} />
         </Routes>
       </div>
     </div>
