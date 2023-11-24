@@ -77,7 +77,14 @@ const AllCharacters = ({token,userId,isAdmin}) => {
   const navToCharacterDetails=async(id)=>{
     navigate(`/character/${id}`);
     }
+   const handleCharacterDelete=async(id)=>{
+    const response = await fetch(`http://localhost:3000/api/characters/character/${id}`,{
+      method:'DELETE'
+    })
+   }
+   const handleUpdateCharacter=async(id)=>{
 
+   }
   return (
     <div>
       <div>
@@ -114,8 +121,8 @@ const AllCharacters = ({token,userId,isAdmin}) => {
                 <button onClick={()=>{navToCharacterDetails(character.id)}}>see details</button>
                 {token&& !isAdmin &&
                 <button onClick={() => handleCharacterClick(character)}>Write a Review</button>}
-                 {isAdmin &&<button onClick={()=>handleCharacterDelete(category.id)}> Delete</button>}
-                         {isAdmin &&<button> Update</button>}
+                 {isAdmin &&<button onClick={()=>handleCharacterDelete(character.id)}> Delete</button>}
+                 {isAdmin &&<button onClick={()=>handleUpdateCharacter(character.id)}> Update</button>}
                 {selectedCharacter && selectedCharacter.id === character.id && (
                   <ReviewForm
                   charId={selectedCharacter.id} userId={userId} token={token} selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview}

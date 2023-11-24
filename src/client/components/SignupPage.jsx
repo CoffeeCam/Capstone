@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function SignupPage({token,setToken}) {
+function SignupPage({setToken,setUserId}) {
     // State variables to store user input
     const [name,setName] = useState('');
     const [email, setEmail] = useState('');
@@ -39,6 +39,7 @@ function SignupPage({token,setToken}) {
           console.log('Registration successful!', data);
          
           setToken(data.token);
+          setUserId(data.user.id);
           setIsRegistrationSuccessful(true);
   setSuccessMessage(`Registration successful! You have been sorted into ${selectedHouse}.`);
         } else {

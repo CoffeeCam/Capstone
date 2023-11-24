@@ -73,11 +73,11 @@ async function getCharacterByName(firstname){
   }
 async function deleteCharacter(id) {
   try {
-    const {rows: [name]} = await db.query(`
-      DELETE * FROM character
+    const {rows} = await db.query(`
+      DELETE FROM character
       WHERE id = $1
     `, [id]);
-    return name;
+    return rows;
   } catch (error) {
     throw error;
   }

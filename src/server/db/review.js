@@ -22,7 +22,7 @@ const createReview=async({charId,creatorId,rating,review})=>{
 async function getReviewDetailsByCharId(charId){
   try{
       const {rows:reviewDetails}= await db.query(`
-      SELECT reviews.id,users.email,users.house,reviews.review,reviews.rating FROM reviews JOIN users ON reviews.creatorId=users.id WHERE charId=$1;
+      SELECT reviews.id,users.name,users.house,reviews.review,reviews.rating FROM reviews JOIN users ON reviews.creatorId=users.id WHERE charId=$1;
       `,[charId]);
       return reviewDetails;
     }catch(error){
