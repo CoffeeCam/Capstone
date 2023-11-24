@@ -105,12 +105,12 @@ async function getAllCharacter(){
   }
 }
 async function getCharacterSearch(inputString){
-  const query='Pot%';
+  const query=inputString;
   try{
-    const {rows}= await db.query(`
+    const {rows:character}= await db.query(`
     select * from character where house like $1 or lastname like $1 or firstname like $1
     `,[query]);
-    return rows;
+    return character;
   }catch(error){
     throw error;
   }

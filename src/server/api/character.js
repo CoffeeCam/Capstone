@@ -43,9 +43,9 @@ charactersRouter.get('/searchCharacter',async(req,res,next)=>{
 charactersRouter.get('/searchChar',async(req,res,next)=>{
     try{
         const {q}=req.query;
-        const inputString=q.toString;
-        const chars=await getCharacterSearch({inputString});
-        res.send({ chars});
+       
+        const chars=await getCharacterSearch(q);
+        res.send({chars});
     }catch(error){
         next(error);
     }

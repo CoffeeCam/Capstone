@@ -90,7 +90,7 @@ const createTables = async () => {
         `)
         await  db.query(`
         CREATE TABLE character(
-          id SERIAL PRIMARY KEY, 
+          id SERIAL PRIMARY KEY , 
           firstname VARCHAR(255) UNIQUE NOT NULL,
           lastname  VARCHAR(255) NOT NULL,
           image VARCHAR(255),
@@ -188,7 +188,7 @@ async function createInitialCharacter() {
      
       {firstname:'Tom',lastname:'Riddle',image:'../src/client/assets/slytherin/TomRiddle.jpg',house:'Slytherin',sex:'M',role:'Student',summary:'Tom Marvolo Riddle, later known as Lord Voldemort or, alternatively as the Dark Lord, You-Know-Who, or He-Who-Must-Not-Be-Named was an English half-blood wizard considered to have been the most powerful and dangerous Dark wizard of all time. He was among the greatest wizards to have ever lived, rivaled only by Albus Dumbledore. He is also a descendant of Salazar Sytherin.'},
       
-      {firstname:'Albus',lastname:'Potter',image:'../src/client/assets/slytherin/AlbusPotter.jpg',house:'Slytherin',sex:'M',role:'Student',summary:'Albus Severus Potter was an  Pure Blood wizard, the second son of Harry and Ginevra Potter  and the godson of Neville Longbottom. He was born two years after his older brother James Sirius and two years before his younger sister Lily Luna. Albus was named in memory of Albus Dumbledore and Severus Snape, two former headmasters of Hogwarts School of Witchcraft and Wizardry and both great wizards that his father knew.'},
+      {firstname:'JAlbus',lastname:'Potter',image:'../src/client/assets/slytherin/AlbusPotter.jpg',house:'Slytherin',sex:'M',role:'Student',summary:'Albus Severus Potter was an  Pure Blood wizard, the second son of Harry and Ginevra Potter  and the godson of Neville Longbottom. He was born two years after his older brother James Sirius and two years before his younger sister Lily Luna. Albus was named in memory of Albus Dumbledore and Severus Snape, two former headmasters of Hogwarts School of Witchcraft and Wizardry and both great wizards that his father knew.'},
     ]
     for (const char of characters) {
       await createCharacter({firstname: char.firstname, lastname: char.lastname, image: char.image,house: char.house,sex: char.sex,role: char.role,summary: char.summary});
