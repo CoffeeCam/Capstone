@@ -104,6 +104,18 @@ async function getAllCharacter(){
     throw error;
   }
 }
+async function getCharacterSearch(inputString){
+  const query='Pot%';
+  try{
+    const {rows}= await db.query(`
+    select * from character where house like $1 or lastname like $1 or firstname like $1
+    `,[query]);
+    return rows;
+  }catch(error){
+    throw error;
+  }
+}
+
 
 module.exports = {
    createCharacter,
@@ -114,6 +126,7 @@ module.exports = {
    deleteCharacter,
    getCharacterByHouse,
    updateCharacter,
-   getCharacterById
+   getCharacterById,
+   getCharacterSearch
 
 };
