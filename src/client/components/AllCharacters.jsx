@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReviewForm from './ReviewForm';
 import { Navigate, useNavigate } from "react-router-dom";
 
-const AllCharacters = ({token,userId}) => {
+const AllCharacters = ({token,userId,isAdmin}) => {
   const navigate=useNavigate();
   const [categoryLists, setCategoryLists] = useState({
     Gryffindor: [],
@@ -112,8 +112,10 @@ const AllCharacters = ({token,userId}) => {
                 <p className="charrole">{character.role}</p>
                 <p>{character.summary}</p>
                 <button onClick={()=>{navToCharacterDetails(character.id)}}>see details</button>
-                {token&&
+                {token&& !isAdmin &&
                 <button onClick={() => handleCharacterClick(character)}>Write a Review</button>}
+                 {isAdmin &&<button onClick={()=>handleCharacterDelete(category.id)}> Delete</button>}
+                         {isAdmin &&<button> Update</button>}
                 {selectedCharacter && selectedCharacter.id === character.id && (
                   <ReviewForm
                   charId={selectedCharacter.id} userId={userId} token={token} selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview}
