@@ -81,6 +81,7 @@ const AllCharacters = ({token,userId,isAdmin}) => {
     const response = await fetch(`http://localhost:3000/api/characters/character/${id}`,{
       method:'DELETE'
     })
+    fetchDataForAllCategories();
    }
    const handleUpdateCharacter=async(id)=>{
 

@@ -42,7 +42,7 @@ console.log(categoryData)
 
     setLoading(true);
     try {
-      const response = await fetch(`/api/characters/searchCharacter?house=${searchQuery}`);
+      const response = await fetch(`/api/characters/searchCharacter?firstname=${searchQuery}`);
       if (response.ok) {
         const categoryData = await response.json();
         setCategoryList(categoryData);
