@@ -1,7 +1,12 @@
 const express = require('express')
 const charactersRouter = express.Router();
 
-const {createCharacter,getCharacterByName,getAllCharacter,getCharacterByHouse,getCharacterById}=require('../db/character');
+const {createCharacter,
+    getCharacterByName,
+    getAllCharacter,
+    getCharacterByHouse,
+    getCharacterById,
+    deleteCharacter}=require('../db/character');
 
 
 // GET /api/characters
@@ -60,6 +65,15 @@ charactersRouter.post('/createCharacter',async(req,res,next)=>{
         });
     }
     catch(error){
+        next(error);
+    }
+})
+charactersRouter.delete('/character/:id',async(req,res,next)=>{
+    try{
+        const {id}=req.params;
+        const chars=await deleteCharacter(id);
+        res.status(204).send();
+    }catch(error){
         next(error);
     }
 })

@@ -22,7 +22,7 @@ const createReview=async({charId,creatorId,rating,review})=>{
 async function getReviewDetailsByCharId(charId){
   try{
       const {rows:reviewDetails}= await db.query(`
-      SELECT reviews.id,users.email,users.house,reviews.review,reviews.rating FROM reviews JOIN users ON reviews.creatorId=users.id WHERE charId=$1;
+      SELECT reviews.id,users.name,users.house,reviews.review,reviews.rating FROM reviews JOIN users ON reviews.creatorId=users.id WHERE charId=$1;
       `,[charId]);
       return reviewDetails;
     }catch(error){
@@ -52,7 +52,7 @@ async function updateReview({id,...fields}){
         const {rows} = await db.query(`
         UPDATE reviews 
         SET ${util.dbFields(toupdate).insert}
-        WHERE id = ${1}
+        WHERE id = ${id}
         RETURNING *;
       `, Object.values(toupdate));
       review=rows[0];
@@ -63,7 +63,19 @@ async function updateReview({id,...fields}){
       throw error;
   }
 }
-
+async function updateReviews({id,rating,review}){
+  try{
+    const {rows} = await db.query(`
+    UPDATE  FROM reviews
+    rating = $2 ,review = $3
+    WHERE id=$1
+  `, [id,rating,review]);
+  return rows;
+}
+catch(error){
+    throw error;
+}
+}
 async function deleteReview(id){
     try{
         const {rows} = await db.query(`
@@ -99,7 +111,7 @@ async function getReviewCharIdCreatorId(charId,creatorId){
 async function getReviewById(id){
   try{
       const {rows: [review]} = await db.query(`
-      SELECT rating,review FROM reviews
+      SELECT * FROM reviews
       WHERE id = $1
     `, [id]);
     return review;

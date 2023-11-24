@@ -68,7 +68,7 @@ console.log(categoryData)
   const navToCharacterDetails=async(id)=>{
     navigate(`/character/${id}`);
     }
-
+  
   return (
     <div>
 
@@ -134,8 +134,7 @@ console.log(categoryData)
                          
                          {token&&
                          <button onClick={() => handleCharacterClick(category)}>Start Review</button>}
-                         {isAdmin &&<button> Delete</button>}
-                         {isAdmin &&<button> Update</button>}
+                         
 
                 {selectedCharacter && selectedCharacter.id === category.id && (
                   <ReviewForm charId={selectedCharacter.id} userId={userId} token={token}selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview}/>

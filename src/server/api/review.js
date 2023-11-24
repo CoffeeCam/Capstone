@@ -128,19 +128,20 @@ reviewsRouter.get('/review/:charId',async(req,res,next)=>{
  })
 
  
- reviewsRouter.patch('/:reviewId',requiredNotSent({requiredParams: ['rating', 'review'], atLeastOne: true}),async(req,res,next)=>{
+ reviewsRouter.patch('/reviewUpdate/:reviewId',requiredNotSent({requiredParams: ['rating', 'review'], atLeastOne: true}),async(req,res,next)=>{
    
     try{
-       const{reviewId}=req.params;
-       const existingReview=await getReviewById(reviewId);
+       const {reviewId}=req.params;
+       const id=parseInt(reviewId);
+       const {rating,review}=req.body;
+       const existingReview=await getReviewById(id);
        if(!existingReview){
            next({
                name:'NotFound',
                message:'No review found'
            });
        }else{
-           const{rating,review}=req.body;
-           const updatedReview=await updateReview({id:reviewId,rating,review});
+           const updatedReview=await updateReview({id:id,rating,review});
            if(updatedReview){
                res.send(updatedReview);
            }else{
@@ -157,19 +158,5 @@ reviewsRouter.get('/review/:charId',async(req,res,next)=>{
    }
    });
    
-   reviewsRouter.patch('/reviewUpdate/:reviewId',async(req,res,next)=>{
-    try{
-    const {reviewId}=req.params;
-    const{rating,review}=req.body;
-       const id=parseInt(reviewId);
-       const updatedReview=await updateReview({id:id,rating,review});
-           if(updatedReview){
-               res.send(updatedReview);
-       
-           }
-      
-    }catch(error){
-     next(error);
-    }
- })
+   
 module.exports = reviewsRouter;

@@ -10,6 +10,7 @@ export default function Me({userId}){
     const [grade,setGrade]=useState('');
     const [review,setReview]=useState('');
     const [err,seterr]=useState('');
+    const [successmsg,setSuccessmsg]=useState('');
    
    useEffect(()=>{
     console.log(userId);
@@ -46,44 +47,65 @@ const handleReviewClick = (review) => {
     
   };   
   const handleSubmitReview = async(e) => {
+    seterr('');
+    setSuccessmsg('');
     e.preventDefault();
+    const validgrade=/^[A-Fa-f]([-+])?$/;
     console.log(grade);
     console.log(review);
     console.log(reviewId);
+    const matches=grade.match(validgrade);
+    if(matches){
     try{
-      const response=await fetch(`http://localhost:3000/api/reviews//reviewUpdate/${reviewId}`,{
+      const response=await fetch(`http://localhost:3000/api/reviews/reviewUpdate/${reviewId}`,{
         method:'PATCH',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           rating:grade,
-          review: review
+          review:review
         })
       });
       const result=await response.json();
+      setSuccessmsg('review Updated');
       console.log(result);
+      setGrade('');
+      setReview('');
+      reviewCreatedByUser();
+    
    }catch(err){
       console.log(err);
    }
+  }
+  else{
+    seterr("enter valid grade");
+  }
   };
 
    return(
     <div> 
-        <h3> about user</h3>
-        {reviews.map(r=>(
-            <li key={r.id}>
-            <p>character Name:{r.firstname} {r.lastname}</p>
-            <p>Character House:{r.house}</p>
+      <div>
+        <h3>User Reviews</h3>
+        {reviews&&reviews.length==0&&<h3>No Reviews </h3>}
+        <ul className="listings">
+        {reviews&&reviews.map(r=>(
+            <li key={r.id} className="listing-item">
+              <div className="listing-content">
+                <div className="character-details">
+            <p className="charname">character Name:{r.firstname} {r.lastname}</p>
+            <p >Character House:{r.house}</p>
             <p >rating:{r.rating} </p>
             <p >review:{r.review} </p>
             <p>{r.id}</p>
-         
+            </div>
+            </div>
            <button onClick={()=>{deleteReview(r.id)}}>delete review</button>
            <button onClick={() => {handleReviewClick(r)}}>Update Review</button>
            {selectedReview && selectedReview.id == r.id && (
                    <div>
                    <h2> Update Review</h2>
+                   {successmsg&&<div style={{ color: 'green', fontWeight: 600, marginBottom: '10px' }}>{successmsg}</div>}
                   <form onSubmit={handleSubmitReview}>
                   <label htmlFor="Input">Update grade </label>
                  <input
@@ -99,13 +121,18 @@ const handleReviewClick = (review) => {
                   value={review}
                   onChange={(e)=>setReview(e.target.value)}/>
                   {err&&<div style={{ color: '#9c1203', fontWeight: 600, marginBottom: '10px' }}>{err}</div>}
+                  
                   <button type="submit">Submit Review</button>
                   </form>
                   </div>
+                  
                 )}
-     
+               
             </li>
+           
         ))}
+        </ul>
+         </div>
     </div>
    )
 
