@@ -70,19 +70,29 @@ async function getUserById(userId) {
 async function getAllUser(){
     try{
       const {rows}= await db.query(`
-      SELECT id,email,house FROM users;
+      SELECT id,name,email,house FROM users;
       `);
       return rows;
     }catch(error){
       throw error;
     }
   }
-  
+  async function deleteUserById(id){
+    try{
+      const {rows}= await db.query(`
+      DELETE  FROM users where id=$1;
+      `,[id]);
+      return rows;
+    }catch(error){
+      throw error;
+    }
+  }
 
 module.exports = {
     createUser,
     getUser,
     getUserByEmail,
     getAllUser,
-    getUserById
+    getUserById,
+    deleteUserById
 };

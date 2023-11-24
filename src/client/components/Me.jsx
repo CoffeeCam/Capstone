@@ -97,7 +97,7 @@ const handleReviewClick = (review) => {
             <p >Character House:{r.house}</p>
             <p >rating:{r.rating} </p>
             <p >review:{r.review} </p>
-            <p>{r.id}</p>
+            
             </div>
             </div>
            <button onClick={()=>{deleteReview(r.id)}}>delete review</button>

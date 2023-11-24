@@ -27,7 +27,7 @@ export default function SelectedCharacter({isAdmin}){
     getReviews();
   },[]);
   const getReviews=async()=>{
-      
+    
     const response=await fetch(`http://localhost:3000/api/reviews/review/${id}`,{
       method: 'GET',
       headers : { 
@@ -37,7 +37,7 @@ export default function SelectedCharacter({isAdmin}){
 });
      const res=await response.json();
      setReviewDetails(res);
-    console.log(res);
+
   
 }
     
@@ -46,7 +46,6 @@ export default function SelectedCharacter({isAdmin}){
         method:'DELETE'
       })
       const result=response.status;
-      console.log(result);
       getReviews();
     }    
       

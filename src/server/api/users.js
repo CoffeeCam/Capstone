@@ -6,7 +6,7 @@ const {
     createUser,
     getUser,
     getUserByEmail,
-    getUserById,
+    deleteUserById,
     getAllUser
 } = require('../db/users');
 const jwt = require('jsonwebtoken');
@@ -18,9 +18,9 @@ usersRouter.get('/alluser', async( req, res, next) => {
     try {
         const users = await getAllUser();
 
-        res.send({
+        res.send(
             users
-        });
+        );
     } catch ({name, message}) {
         next({name, message})
     }
@@ -110,5 +110,14 @@ usersRouter.post('/register', async(req, res, next) => {
         next({error})
     }
 })
+usersRouter.delete('/user/:id', async( req, res, next) => {
+    try {
+        const {id}=req.params;
+        const users = await deleteUserById(id);
 
+        res.status(204).send();
+    } catch ({name, message}) {
+        next({name, message})
+    }
+});
 module.exports = usersRouter;
