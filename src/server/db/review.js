@@ -39,6 +39,8 @@ async function getReviewDetailsByCreatorId(creatorId){
       throw error;
     }
 }
+
+
 async function updateReview({id,...fields}){
   try{
       const toupdate={};
@@ -97,7 +99,7 @@ async function getReviewCharIdCreatorId(charId,creatorId){
 async function getReviewById(id){
   try{
       const {rows: [review]} = await db.query(`
-      SELECT * FROM reviews
+      SELECT rating,review FROM reviews
       WHERE id = $1
     `, [id]);
     return review;

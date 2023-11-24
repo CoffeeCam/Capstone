@@ -45,7 +45,7 @@ const App = () => {
           <Route path='/signup' element={<SignupPage token={token} setToken={setToken} userId={userId} setUserId={setUserId}/>} />
            <Route path='/login' element={<Login token={token} setToken={setToken} userId={userId} setUserId={setUserId} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>} />
            <Route path='/me' element={<Me userId={userId} setUserId={setUserId}/>} />
-           <Route path='/logout' element={<Logout setToken={setToken} setUserId={setUserId}/>} />
+           <Route path='/logout' element={<Logout setToken={setToken} setIsAdmin={setIsAdmin}token={token} setUserId={setUserId}/>} />
            <Route path="/character/:id" element={<SelectedCharacter/>} isAdmin={isAdmin}/>
            <Route path='/characters' element={<AllCharacters token={token} setToken={setToken} setUserId={setUserId} userId={userId} isAdmin={isAdmin}/>} />
         </Routes>

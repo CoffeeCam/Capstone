@@ -57,12 +57,24 @@ reviewsRouter.get('/rating/:charId',async(req,res,next)=>{
    }
 
 })
+
 reviewsRouter.delete('/:reviewId',async(req,res,next)=>{
     try{
      const {reviewId}=req.params;
      const id=parseInt(reviewId);
      const res1=await deleteReview(id);
      res.status(204).send(res1);
+    }catch(error){
+     next(error);
+    }
+ 
+ })
+ reviewsRouter.get('/reviewdetails/:reviewId',async(req,res,next)=>{
+    try{
+     const {reviewId}=req.params;
+     const id=parseInt(reviewId);
+     const reviews=await getReviewById(id);
+     res.send(reviews);
     }catch(error){
      next(error);
     }
@@ -145,5 +157,19 @@ reviewsRouter.get('/review/:charId',async(req,res,next)=>{
    }
    });
    
-    
+   reviewsRouter.patch('/reviewUpdate/:reviewId',async(req,res,next)=>{
+    try{
+    const {reviewId}=req.params;
+    const{rating,review}=req.body;
+       const id=parseInt(reviewId);
+       const updatedReview=await updateReview({id:id,rating,review});
+           if(updatedReview){
+               res.send(updatedReview);
+       
+           }
+      
+    }catch(error){
+     next(error);
+    }
+ })
 module.exports = reviewsRouter;
