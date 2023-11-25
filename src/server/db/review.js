@@ -132,10 +132,10 @@ async function getReviewBycharId(id){
 }
 async function getRatingBycharId(id){
     try{
-        const {rows}= await db.query(`
+        const {rows:rating}= await db.query(`
         SELECT rating FROM reviews WHERE charId = $1
         `, [id]);
-        return rows;
+        return rating;
       }catch(error){
         throw error;
       }
