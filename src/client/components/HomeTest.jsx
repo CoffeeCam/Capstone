@@ -5,23 +5,24 @@ import { Navigate, useNavigate } from "react-router-dom";
 const HomeTest = ({token,userId,isAdmin}) => {
   const navigate=useNavigate();
   const [categoryList, setCategoryList] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');  
+  const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(null);
 
   useEffect(() => {
-    fetchDataForCategory('Gryffindor');
+    fetchDataForCategory('Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin');
   }, []);
 
   const fetchDataForCategory = async (selectedCategory) => {
-          
+    setLoading(!loading);
     try {
       const response = await fetch(`http://localhost:3000/api/characters/searchChar?q=${selectedCategory}`);
       console.log(response)
-      const charData = await response.json();
-      console.log(charData)
+      const categoryData = await response.json();
+console.log(categoryData)
       if (response.ok) {
-        setCategoryList(charData);
+        setCategoryList(categoryData);
       } else {
         console.error('Failed to fetch category data');
       }
@@ -29,11 +30,20 @@ const HomeTest = ({token,userId,isAdmin}) => {
       console.error('Error fetching category data:', error);
     } finally {
       console.log(categoryList)
-     
+      setLoading(!loading);
     }
   };
 
-  
+  const handleSearch = async () => {
+    let str=searchQuery.trim()  
+    if(str.length<1){
+      return;
+    }
+    else{
+      fetchDataForCategory(searchQuery);
+    }
+   
+  };
 
   const handleCharacterClick = (character) => {
     setSelectedCharacter(character);
@@ -47,11 +57,7 @@ const HomeTest = ({token,userId,isAdmin}) => {
   const navToCharacterDetails=async(id)=>{
     navigate(`/character/${id}`);
     }
-  const setQuery=()=>{
-     
-     fetchDataForCategory(searchQuery);
-  }
-
+  
   return (
     <div>
 
@@ -64,7 +70,7 @@ const HomeTest = ({token,userId,isAdmin}) => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button onClick={setQuery}>Search</button>
+        <button onClick={handleSearch}>Search</button>
       </div>
       <div className="main-content">
         <div>

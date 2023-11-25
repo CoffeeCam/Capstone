@@ -43,11 +43,14 @@ charactersRouter.get('/searchCharacter',async(req,res,next)=>{
 charactersRouter.get('/searchChar',async(req,res,next)=>{
     try{
         const {q}=req.query;
-       
-        const chars=await getCharacterSearch(q);
-        res.send({chars});
+        
+        const chars=await getCharacterSearch(q.charAt(0).toUpperCase() + q.slice(1));
+        res.send(chars);
     }catch(error){
-        next(error);
+        next({
+            name:"no character exists",
+            message:"no match data found"
+        });
     }
 })
 charactersRouter.post('/createCharacter',async(req,res,next)=>{
