@@ -85,54 +85,53 @@ const handleReviewClick = (review) => {
 
    return(
     <div> 
-      <div>
+      
         <h3>User Reviews</h3>
         {reviews&&reviews.length==0&&<h3>No Reviews </h3>}
-        <ul className="listings">
-        {reviews&&reviews.map(r=>(
-            <li key={r.id} className="listing-item">
-              <div className="listing-content">
-                <div className="character-details">
-            <p className="charname">character Name:{r.firstname} {r.lastname}</p>
-            <p >Character House:{r.house}</p>
-            <p >rating:{r.rating} </p>
-            <p >review:{r.review} </p>
-            
-            </div>
-            </div>
-           <button onClick={()=>{deleteReview(r.id)}}>delete review</button>
-           <button onClick={() => {handleReviewClick(r)}}>Update Review</button>
-           {selectedReview && selectedReview.id == r.id && (
-                   <div>
-                   <h2> Update Review</h2>
-                   {successmsg&&<div style={{ color: 'green', fontWeight: 600, marginBottom: '10px' }}>{successmsg}</div>}
-                  <form onSubmit={handleSubmitReview}>
-                  <label htmlFor="Input">Update grade </label>
-                 <input
-                   type="text"
-                   id="Input"
-                   value={grade}
-                   onChange={(e)=>setGrade(e.target.value)}
-                    />
-           
-                   <label htmlFor='updateReview'>Update Review</label>
-                  <textarea
-                  id="updateReview"
-                  value={review}
-                  onChange={(e)=>setReview(e.target.value)}/>
-                  {err&&<div style={{ color: '#9c1203', fontWeight: 600, marginBottom: '10px' }}>{err}</div>}
+      <ul >
+          {reviews&&reviews.map(r=>(
+            <div  className='rewviewContainer'>
+            <li key={r.id} >
+                
+                 <p className="charname">{r.firstname} {r.lastname}</p>
+                 <p className="charrole" >{r.house}</p>
+                 <p >rating:{r.rating} </p>
+                 <p >review:{r.review} </p>
+                 <button onClick={()=>{deleteReview(r.id)}}>delete review</button>
+                 <button onClick={() => {handleReviewClick(r)}}>Update Review</button>
+                 
+                 {selectedReview && selectedReview.id == r.id && (
+                  <div>
+                     <h2> Update Review</h2>
+                    {successmsg&&<div style={{ color: 'green', fontWeight: 600, marginBottom: '10px' }}>{successmsg}</div>}
+                    {err&&<div style={{ color: '#9c1203', fontWeight: 600, marginBottom: '10px' }}>{err}</div>}
                   
-                  <button type="submit">Submit Review</button>
-                  </form>
-                  </div>
+                        <form onSubmit={handleSubmitReview}>
+                         <label htmlFor="Input">Update grade </label>
+                           <input
+                           type="text"
+                           id="Input"
+                           value={grade}
+                           onChange={(e)=>setGrade(e.target.value)}
+                           />
+                         <label htmlFor='updateReview'>Update Review</label>
+                           <textarea
+                           id="updateReview"
+                           value={review}
+                           onChange={(e)=>setReview(e.target.value)}/>
+                     
+                          <button type="submit">Submit Review</button>
+                        </form>
+                   </div>
                   
                 )}
                
             </li>
-           
-        ))}
+            </div>
+             ))
+          }
         </ul>
-         </div>
+        
     </div>
    )
 

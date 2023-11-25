@@ -4,14 +4,15 @@ import { useParams } from 'react-router-dom';
 
 
 
-export default function SelectedCharacter({isAdmin}){
+export default function SelectedCharacter({isAdmin,token,userId}){
  
   let {id}=useParams();
   const[charDetails,setCharDetails]=useState({});
   const[reviewDetails,setReviewDetails]=useState([]);
-  const [ratings,setRatings]=useState([]);
   const [overAllRating,setOverAllRating]=useState('');
-  const [total,settotal]=useState(0);
+  const[comments,setComments]=useState([]);
+  const[writeComment,setWriteComment]=useState('');
+  const[selectedReview,setSelectedReview]=useState('');
   const grade = new Map([['A+', 100],['A ', 95],['A-', 90],
                         ['B+', 85],['B ', 80],['B-', 75],
                         ['C+', 70],['C ', 65],['C', 60],
@@ -85,43 +86,82 @@ const getoverAllRating=async()=>{
       const result=response.status;
       getReviews();
     }    
+     const handleViewComment=async(reviewId)=>{
+       setSelectedReview(reviewId);
+       try{
+        const response=await fetch(`http://localhost:3000/api/comments/review/comments/${reviewId}`);
+        const result=await response.json();
+        console.log(result);
+        setComments(result);
+      }catch(error){
+      console.log(error);
+     }
+      }
+
+     const handlecreateComment=async()=>{
+      e.preventDefault();
       
-    
+      
+     }
+
+     
   return(
     <div >
-        <p className="charname">Character Name :  {charDetails.firstname} {charDetails.lastname}</p>
-        <p >Gender: {charDetails.sex}</p>
-        <p >House: {charDetails.house}</p>
-        <p >Role: {charDetails.role}</p>
-        <p >Summary: {charDetails.summary}</p>
-        <p>OverAll Rating:{overAllRating}</p>
-        <img src={charDetails.image} alt="characterImage" width={250} height={250}/>
-       
-        <p>
-
-        </p>
+      <div className='selectedCharDetails'>
+           <p className="charname">{charDetails.firstname} {charDetails.lastname}</p>
+           <p className="charrole" ><strong>{charDetails.role}</strong></p>
+           <p ><strong>{charDetails.sex}</strong></p>
+           <p ><strong>{charDetails.house}</strong></p>
+          
+           <p>Rating:<strong>{overAllRating}</strong></p>
+           <p >{charDetails.summary}</p>
+          <img src={charDetails.image} alt="characterImage" width={250} height={250}/>
+      </div>
       
         <h3>Reviews</h3>
-        <div>
-        {reviewDetails&&reviewDetails.length==0&&<h3>No reviews</h3>}
-        <ul className="listings">
-       {reviewDetails.map(r=>(
-        <li key={r.id}className="listing-item" >
-          <div className="listing-content">
-                <div className="character-details">
-                 
-         <p className="charname"style={{textAlign: 'left'}}>username:{r.name} </p>
-         <p style={{textAlign: 'left'}}>user House:{r.house} </p>
-         <p style={{textAlign: 'left'}}>rating:{r.rating} </p>
-         <p style={{textAlign: 'left'}}>review:{r.review}</p>
-         </div>
-         </div>
-         {isAdmin&&<button onClick={()=>handleReviewDelete(r.id)}>Delete Review</button>}
-          
-          
-        </li>
-       ))}
-       </ul>
+         <div >
+          {reviewDetails&&reviewDetails.length==0&&<h3>No reviews</h3>}
+          <ul>
+          {reviewDetails.map(r=>(
+            <div className='rewviewContainer'>
+              <li key={r.id} >
+                
+                 <p >username:{r.name} </p>
+                 <p >rating:{r.rating} </p>
+                 <p>review:{r.review}</p>
+         
+                 {isAdmin&&<button onClick={()=>handleReviewDelete(r.id)}>Delete Review</button>}
+                <button onClick={()=>{handleViewComment(r.id)}}>view Comments</button>
+                  {token&&selectedReview&&selectedReview==r.id&&
+                  <form onSubmit={handlecreateComment}>
+                   <label htmlFor="comment">Write Comment</label>
+                   <textarea
+                   id="comment"
+                   value={writeComment}
+                   onChange={(e)=>setWriteComment(e.target.value)}/>
+                    <button type="submit">create comment</button>
+                    </form>} 
+                  {selectedReview&&selectedReview==r.id&&
+                <div>
+                   <h4>comments</h4>
+                   {comments.length<1&&<h3>No Comments</h3>}
+                   <ul>
+                     {comments.map(c=>
+                      <div className="commentContainer">
+                         <li key={c.id}>
+                           <p>User:{c.name}</p>
+                           <p>comment:{c.comment}</p>
+                          </li>
+                      </div>
+                     )}
+                    </ul>
+                </div>}
+              </li>
+              
+            </div>
+             ))
+           }
+           </ul>
       
        </div> 
     </div>

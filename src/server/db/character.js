@@ -7,8 +7,7 @@ const createCharacter = async({firstname,lastname,image,house,sex,role,summary})
         const { rows: [char ] } = await db.query(`
         INSERT INTO character(firstname,lastname,image,house,sex,role,summary)
         VALUES($1, $2, $3, $4, $5, $6, $7)
-        ON CONFLICT (firstname) DO NOTHING
-        RETURNING *`, [firstname,lastname,image,house,sex,role,summary]);
+        `, [firstname,lastname,image,house,sex,role,summary]);
 
         return char;
     } catch (err) {
