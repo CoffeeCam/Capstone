@@ -10,12 +10,22 @@ export default function SelectedCharacter({isAdmin}){
   const[charDetails,setCharDetails]=useState({});
   const[reviewDetails,setReviewDetails]=useState([]);
   const [ratings,setRatings]=useState([]);
-  const [overAllRating,setOverAllRating]=useState();
+  const [overAllRating,setOverAllRating]=useState('');
+  const [total,settotal]=useState(0);
+  const grade = new Map([['A+', 100],['A ', 95],['A-', 90],
+                        ['B+', 85],['B ', 80],['B-', 75],
+                        ['C+', 70],['C ', 65],['C', 60],
+                        ['D+', 55],['D ', 50],['D-', 45],
+                        ['F+', 40],['F ', 35],['F-', 30]]);
   useEffect(()=>{
-    fetchSingleCharDetails();
-    getReviews();
-    getoverAllRating();
+   
+   fetchSingleCharDetails();
+   getReviews();
+   getoverAllRating();
+    
+   
   },[]);
+  
   const fetchSingleCharDetails=async()=>{
     try{
        const response=await fetch(`/api/characters/character/${id}`)
@@ -23,6 +33,8 @@ export default function SelectedCharacter({isAdmin}){
        console.log(result);
        console.log(result.id);
        setCharDetails(result);
+       
+       
     }catch(error){
 
     }
@@ -32,35 +44,24 @@ const getoverAllRating=async()=>{
   const response=await fetch(`http://localhost:3000/api/reviews/rating/${id}`);
   const result=await response.json();
   console.log(result);
-  setRatings(result);
-  calculateOverAllRating();
-}
-
-const calculateOverAllRating=async()=>{
-  let total=0;
-  const grade = new Map([['A+', 100],['A ', 95],['A-', 90],
-                        ['B+', 85],['B ', 80],['B-', 75],
-                        ['C+', 70],['C ', 65],['C', 60],
-                        ['D+', 55],['D ', 50],['D-', 45],
-                        ['F+', 40],['F ', 35],['F-', 30]]);
-
-  ratings.map(r=>total=total+grade.get((r.rating)))
-  let avg=total/ratings.length;
-  let finalavg=0;
-  console.log(avg);
-  if(avg%10<=5&&avg%10>=1){
-     finalavg=Math.round(avg / 5) * 5
-  }
-  else{
-   finalavg=Math.round(avg / 10) * 10
-  }
-  console.log("final avg:",finalavg);
-  for (const [key, value] of grade.entries()) {
-    if (value ==finalavg) {
+  const rat=new Array();
+  result.map(r=>rat.push(r.rating));
+  console.log(rat);
+  const gradeValue=new Array();
+  rat.map(r=>gradeValue.push(grade.get(r)));
+  const sum = gradeValue.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+   console.log(sum);
+   let avg=sum/rat.length;
+    avg=Math.round(avg / 5) * 5
+   console.log("final avg:",avg);
+   for (const [key, value] of grade.entries()) {
+    if (value ==avg) {
       console.log(key);
        setOverAllRating(key);
     }}
+
 }
+
   const getReviews=async()=>{
     
     const response=await fetch(`http://localhost:3000/api/reviews/review/${id}`,{
@@ -72,6 +73,7 @@ const calculateOverAllRating=async()=>{
 });
      const res=await response.json();
      setReviewDetails(res);
+    
 
   
 }
