@@ -15,36 +15,13 @@ const HomeTest = ({token,userId,isAdmin}) => {
   }, []);
 
   const fetchDataForCategory = async (selectedCategory) => {
-    setLoading(true);
+    setLoading(!loading);
     try {
-      const response = await fetch(`http://localhost:3000/api/characters/searchCharacter?house=${selectedCategory}`);
+      const response = await fetch(`http://localhost:3000/api/characters/searchChar?q=${selectedCategory}`);
       console.log(response)
       const categoryData = await response.json();
 console.log(categoryData)
       if (response.ok) {
-        setCategoryList(categoryData['chars']);
-      } else {
-        console.error('Failed to fetch category data');
-      }
-    } catch (error) {
-      console.error('Error fetching category data:', error);
-    } finally {
-      console.log(categoryList)
-      setLoading(false);
-    }
-  };
-
-  const handleSearch = async () => {
-    if (searchQuery.trim() === '') {
-      // Handle empty search query if needed
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const response = await fetch(`/api/characters/searchCharacter?firstname=${searchQuery}`);
-      if (response.ok) {
-        const categoryData = await response.json();
         setCategoryList(categoryData);
       } else {
         console.error('Failed to fetch category data');
@@ -52,8 +29,20 @@ console.log(categoryData)
     } catch (error) {
       console.error('Error fetching category data:', error);
     } finally {
-      setLoading(false);
+      console.log(categoryList)
+      setLoading(!loading);
     }
+  };
+
+  const handleSearch = async () => {
+    let str=searchQuery.trim()  
+    if(str.length<1){
+      return;
+    }
+    else{
+      fetchDataForCategory(searchQuery);
+    }
+   
   };
 
   const handleCharacterClick = (character) => {

@@ -4,6 +4,7 @@ const charactersRouter = express.Router();
 const {createCharacter,
     getCharacterByName,
     getAllCharacter,
+    getCharacterSearch,
     getCharacterByHouse,
     getCharacterById,
     deleteCharacter}=require('../db/character');
@@ -39,7 +40,19 @@ charactersRouter.get('/searchCharacter',async(req,res,next)=>{
         next(error);
     }
 })
-
+charactersRouter.get('/searchChar',async(req,res,next)=>{
+    try{
+        const {q}=req.query;
+        
+        const chars=await getCharacterSearch(q.charAt(0).toUpperCase() + q.slice(1));
+        res.send(chars);
+    }catch(error){
+        next({
+            name:"no character exists",
+            message:"no match data found"
+        });
+    }
+})
 charactersRouter.post('/createCharacter',async(req,res,next)=>{
     const{firstname,lastname,image,house,sex,role,summary}=req.body;
     try{

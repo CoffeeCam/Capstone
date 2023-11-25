@@ -13,7 +13,7 @@ function SignupPage({setToken,setUserId}) {
 
     const handleSignup = async (e) => {
       e.preventDefault();
-
+      setErrorMessage('');
         // Check if password and confirmPassword match
   if (password !== confirmPassword) {
     setErrorMessage('Passwords do not match');
