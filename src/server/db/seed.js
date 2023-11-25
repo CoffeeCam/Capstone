@@ -113,7 +113,7 @@ const createTables = async () => {
         id SERIAL PRIMARY KEY, 
         charId INTEGER REFERENCES character(id) ON DELETE CASCADE NOT NULL,
         creatorId INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL,
-        rating CHAR(3) NOT NULL, 
+        rating CHAR(2) NOT NULL, 
         review TEXT NOT NULL
       );
     `)
