@@ -90,7 +90,7 @@ function ReviewForm({charId,userId,token,}) {
         </div>
         <div>
           <label>Grade:</label>
-          <div style={{ display: 'flex' }}>
+          <div className='radio-group'>
           {gradeOptions.map((option) => (
             <div key={option.label} >
               <input
@@ -101,7 +101,7 @@ function ReviewForm({charId,userId,token,}) {
                 checked={grade === option.label}
                 onChange={(e) => setGrade(e.target.value)}
               />
-              <label style={{ marginRight: '10px' }}htmlFor={option.label}>{option.label}</label>
+              <label htmlFor={option.label}>{option.label}</label>
             </div>
           ))}
           </div>

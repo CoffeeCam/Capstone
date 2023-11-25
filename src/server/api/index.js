@@ -38,6 +38,9 @@ apiRouter.use('/reviews', reviewsRouter);
 const adminRouter = require('./admin');
 apiRouter.use('/admin', adminRouter);
 
+const commentsRouter = require('./comment');
+apiRouter.use('/comments', commentsRouter);
+
 apiRouter.use((err, req, res, next) => {
   res.status(500).send(err)
 })
