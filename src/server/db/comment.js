@@ -26,7 +26,16 @@ const getCommentByreviewId=async(reviewId)=>{
         throw error;
     }
 }
+const getCommentByuserId=async(userId)=>{
+    try{
+        const {rows:commentDetails}=await db.query(`SELECT * FROM comments WHERE creatorId=$1`,[userId]);
+        return commentDetails;
+    }catch(error){
+        throw error;
+    }
+}
 module.exports={
     createComments,
-    getCommentByreviewId
+    getCommentByreviewId,
+    getCommentByuserId
 };
