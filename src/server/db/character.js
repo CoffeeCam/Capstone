@@ -7,8 +7,7 @@ const createCharacter = async({firstname,lastname,image,house,sex,role,summary})
         const { rows: [char ] } = await db.query(`
         INSERT INTO character(firstname,lastname,image,house,sex,role,summary)
         VALUES($1, $2, $3, $4, $5, $6, $7)
-        ON CONFLICT (firstname) DO NOTHING
-        RETURNING *`, [firstname,lastname,image,house,sex,role,summary]);
+        `, [firstname,lastname,image,house,sex,role,summary]);
 
         return char;
     } catch (err) {
@@ -27,6 +26,17 @@ async function getCharacterByName(firstname){
     }
   }
 
+  async function getCharacterById(id){
+    try {
+      const {rows:[character]} = await db.query(`
+        SELECT * FROM character
+        WHERE id = $1
+      `, [id]);
+      return character;
+    } catch (error) {
+      throw error;
+    }
+  }
   async function getCharacterByHouse(house){
     try {
       const {rows: characters} = await db.query(`
@@ -62,11 +72,11 @@ async function getCharacterByName(firstname){
   }
 async function deleteCharacter(id) {
   try {
-    const {rows: [name]} = await db.query(`
-      DELETE * FROM character
+    const {rows} = await db.query(`
+      DELETE FROM character
       WHERE id = $1
     `, [id]);
-    return name;
+    return rows;
   } catch (error) {
     throw error;
   }
@@ -93,6 +103,18 @@ async function getAllCharacter(){
     throw error;
   }
 }
+async function getCharacterSearch(q){
+  
+  try{
+    const {rows:characters}= await db.query(`
+    select * from character where house like $1 or lastname like $1 or firstname like $1
+    `,[q+'%']);
+    return characters;
+  }catch(error){
+    throw error;
+  }
+}
+
 
 module.exports = {
    createCharacter,
@@ -102,6 +124,8 @@ module.exports = {
    getAllCharacter,
    deleteCharacter,
    getCharacterByHouse,
-   updateCharacter
+   updateCharacter,
+   getCharacterById,
+   getCharacterSearch
 
 };

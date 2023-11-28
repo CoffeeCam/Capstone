@@ -6,7 +6,7 @@ const {
     createUser,
     getUser,
     getUserByEmail,
-    getUserById,
+    deleteUserById,
     getAllUser
 } = require('../db/users');
 const jwt = require('jsonwebtoken');
@@ -18,9 +18,9 @@ usersRouter.get('/alluser', async( req, res, next) => {
     try {
         const users = await getAllUser();
 
-        res.send({
+        res.send(
             users
-        });
+        );
     } catch ({name, message}) {
         next({name, message})
     }
@@ -45,6 +45,7 @@ usersRouter.post('/login', async(req, res, next) => {
             });
 
             res.send({
+                user,
                 message: 'Login successful!',
                 token
             });
@@ -63,7 +64,7 @@ usersRouter.post('/login', async(req, res, next) => {
 usersRouter.post('/register', async(req, res, next) => {
     
     try {
-        const { email, password, confirmPassword, house } = req.body;
+        const { name,email, password,house } = req.body;
         const queriedUser = await getUserByEmail(email);
 
         if(queriedUser) {
@@ -80,7 +81,7 @@ usersRouter.post('/register', async(req, res, next) => {
             });
         } else{
         const user = await createUser({
-            
+            name,
             email,
             password,
             house,
@@ -109,5 +110,14 @@ usersRouter.post('/register', async(req, res, next) => {
         next({error})
     }
 })
+usersRouter.delete('/user/:id', async( req, res, next) => {
+    try {
+        const {id}=req.params;
+        const users = await deleteUserById(id);
 
+        res.status(204).send();
+    } catch ({name, message}) {
+        next({name, message})
+    }
+});
 module.exports = usersRouter;

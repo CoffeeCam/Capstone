@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-function SignupPage() {
+function SignupPage({setToken,setUserId}) {
     // State variables to store user input
+    const [name,setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -12,7 +13,7 @@ function SignupPage() {
 
     const handleSignup = async (e) => {
       e.preventDefault();
-
+      setErrorMessage('');
         // Check if password and confirmPassword match
   if (password !== confirmPassword) {
     setErrorMessage('Passwords do not match');
@@ -26,6 +27,7 @@ function SignupPage() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
+            name:`${name}`,
             email:  `${email}`,
             password:  `${password}`,
             house:  `${selectedHouse}`,
@@ -35,6 +37,9 @@ function SignupPage() {
         if (response.ok) {
           const data = await response.json();
           console.log('Registration successful!', data);
+         
+          setToken(data.token);
+          setUserId(data.user.id);
           setIsRegistrationSuccessful(true);
   setSuccessMessage(`Registration successful! You have been sorted into ${selectedHouse}.`);
         } else {
@@ -61,6 +66,17 @@ function SignupPage() {
           {successMessage && <div style={{ color: 'green', fontWeight: 600, marginBottom: '10px' }}>{successMessage}</div>}
           
           <form onSubmit={handleSignup}>
+          <div style={{ marginBottom: '10px' }}>
+              <label htmlFor="textInput"style={{ display: 'block' }}>Name:&nbsp;</label>
+              <input
+                type="text"
+                id="name"
+                placeholder="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
           <div style={{ marginBottom: '10px' }}>
               <label htmlFor="email" style={{ display: 'block' }}>Email:&nbsp;</label>
               <input

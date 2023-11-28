@@ -1,62 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import ReviewForm from './ReviewForm';
-import Reviews from './Reviews';
+import { Navigate, useNavigate } from "react-router-dom";
 
-const HomeTest = () => {
+const HomeTest = ({token,userId,isAdmin}) => {
+  const navigate=useNavigate();
   const [categoryList, setCategoryList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
-  const [characterReviews, setCharacterReviews] = useState({});
-
+  const [currentCategory, setCurrentCategory] = useState(null);
 
   useEffect(() => {
     fetchDataForCategory('Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin');
   }, []);
 
   const fetchDataForCategory = async (selectedCategory) => {
-    setLoading(true);
+    setLoading(!loading);
     try {
-      const response = await fetch(`http://localhost:3000/api/characters/searchCharacter?house=${selectedCategory}`);
+      const response = await fetch(`http://localhost:3000/api/characters/searchChar?q=${selectedCategory}`);
+      console.log(response)
       const categoryData = await response.json();
   
       if (response.ok) {
-        setCategoryList(categoryData['chars']);
-        // Fetch reviews data for each character
-        const reviewsData = await Promise.all(
-          categoryData['chars'].map(async (character) => {
-            const reviewsResponse = await fetch(`http://localhost:3000/api/reviews/${character.id}`);
-            const reviewsData = await reviewsResponse.json();
-            return { characterId: character.id, reviews: reviewsData };
-          })
-        );
-        // Organize reviews data in the state
-        const reviewsMap = reviewsData.reduce((acc, { characterId, reviews }) => {
-          acc[characterId] = reviews;
-          return acc;
-        }, {});
-        setCharacterReviews(reviewsMap);
-      } else {
-        console.error('Failed to fetch category data');
-      }
-    } catch (error) {
-      console.error('Error fetching category data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSearch = async () => {
-    if (searchQuery.trim() === '') {
-      // Handle empty search query if needed
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const response = await fetch(`/api/characters/searchCharacter?house=${searchQuery}`);
-      if (response.ok) {
-        const categoryData = await response.json();
         setCategoryList(categoryData);
       } else {
         console.error('Failed to fetch category data');
@@ -64,9 +29,54 @@ const HomeTest = () => {
     } catch (error) {
       console.error('Error fetching category data:', error);
     } finally {
-      setLoading(false);
+      console.log(categoryList)
+      setLoading(!loading);
     }
   };
+
+  const handleSearch = async () => {
+    let str=searchQuery.trim()  
+    if(str.length<1){
+      return;
+    }
+    else{
+      fetchDataForCategory(searchQuery);
+    }
+   
+  };
+
+const fetchCharacterByName = async (firstName, lastName) => {
+  setLoading(true);
+  try {
+    const response = await fetch(`http://localhost:3000/api/characters/searchChar?q=${firstName}&lastName=${lastName}`);
+    const characterData = await response.json();
+
+    if (response.ok && characterData.length > 0) {
+      // If character data exists, navigate to the details of the first character found
+      const firstCharacter = characterData[0];
+      navToCharacterDetails(firstCharacter.id);
+    } else {
+      console.error('Character not found');
+      // Handle the case where the character is not found
+    }
+  } catch (error) {
+    console.error('Error fetching character data:', error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+const handleCharacterSearch = async () => {
+  const [firstName, lastName] = searchQuery.trim().split(' ');
+
+  if (!firstName || !lastName) {
+    // Handle case where either first or last name is missing
+    console.error('Both first and last names are required for the search');
+    return;
+  }
+
+  fetchCharacterByName(firstName.toLowerCase(), lastName.toLowerCase());
+};
 
   const handleCharacterClick = (character) => {
     setSelectedCharacter(character);
@@ -77,27 +87,32 @@ const HomeTest = () => {
     console.log('Review submitted:', reviewData);
   };
 
+  const navToCharacterDetails=async(id)=>{
+    navigate(`/character/${id}`);
+    }
+  
   return (
     <div>
-      <div className="main-content">
-        <h2>Main Content</h2>
+
+   
+      <div>
         <div>
-        <h2>Search Bar</h2>
         <input
           type="text"
-          placeholder="Search for a character"
+          placeholder="First Last"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button onClick={handleSearch}>Search</button>
+        <button onClick={handleCharacterSearch}>Search for a Character</button>
       </div>
+      <div className="main-content">
         <div>
           <img
             src="./src/client/assets/gryffindor/crest-gryffindor.png"
             alt="Gryffindor"
             onClick={() => fetchDataForCategory('Gryffindor')}
           />
-        </div>
+      </div>
         <div>
           <img
             src="./src/client/assets/hufflepuff/crest-hufflepuff.png"
@@ -119,30 +134,37 @@ const HomeTest = () => {
             onClick={() => fetchDataForCategory('Slytherin')}
           />
         </div>
-      </div>
-      <div>
-        <h2>Category List</h2>
-          <ul>
-          {categoryList.map((category) => (
-            <li key={category.id}>
-              <div>
-                <img src={category.image} alt={category.firstname} /> <br />
-                {category.firstname} {category.lastname} <br />
-                {category.role} <br />
-                {category.summary} <br />
-                <button onClick={() => handleCharacterClick(category)}>Start Review</button>
-                <button onClick={() => console.log('See Reviews clicked for', category.firstname)}>
-                  See Reviews
-                </button>
+        </div>
+      
+     
+      <div className="house">
+  {currentCategory && <h2>{currentCategory}</h2>}
+</div>
+          <ul className="listings">
+            {categoryList.map((category) => {
+              console.log('here2')
+              return <li key={category.id} className="listing-item">
+                        <div className="listing-content">
+                          <img src={category.image}
+                          alt={`${category.firstname} ${category.lastname}`}
+                          className="character-image"/> <br/> 
+                                      <div className="character-details">
+                <p className="charname">{category.firstname} {category.lastname}</p>
+                <p className="charrole">{category.role}</p>
+                <p>{category.summary}</p>
+                <button onClick={()=>{navToCharacterDetails(category.id)}}>see details</button>
+                         
+                         {token&&
+                         <button onClick={() => handleCharacterClick(category)}>Start Review</button>}
+                         
+
                 {selectedCharacter && selectedCharacter.id === category.id && (
-                  <>
-                    <ReviewForm selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview} />
-                    <Reviews reviews={characterReviews[selectedCharacter.id] || []} />
-                  </>
+                  <ReviewForm charId={selectedCharacter.id} userId={userId} token={token}selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview}/>
                 )}
               </div>
-            </li>
-          ))}
+                        </div>
+                      </li>
+            })}
           </ul>
           {/* {selectedCharacter && (
         <ReviewForm selectedCharacter={selectedCharacter} onSubmitReview={handleSubmitReview} />
