@@ -99,11 +99,11 @@ const handleCharacterSearch = async () => {
         <div>
         <input
           type="text"
-          placeholder="Search for a character"
+          placeholder="First Last"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button onClick={handleCharacterSearch}>Search</button>
+        <button onClick={handleCharacterSearch}>Search for a Character</button>
       </div>
       <div className="main-content">
         <div>
