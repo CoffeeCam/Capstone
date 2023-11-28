@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
+
 export default function Me({userId}){
   const navigateTo = useNavigate();
     const [reviews,setReviews]=useState([]);
@@ -11,13 +12,16 @@ export default function Me({userId}){
     const [review,setReview]=useState('');
     const [err,seterr]=useState('');
     const [successmsg,setSuccessmsg]=useState('');
+    const [comments,setComments]=useState([]);
    
    useEffect(()=>{
-    console.log(userId);
-    reviewCreatedByUser();
     if(userId==null){
       navigateTo('/');
     }
+    reviewCreatedByUser();
+    commentCreatedByUser();
+   
+    
    },[]);
   
    const deleteReview=async(id)=>{
@@ -26,9 +30,20 @@ export default function Me({userId}){
       method:'DELETE'
     });
     reviewCreatedByUser();
+    commentCreatedByUser();
    console.log(response.status);
    
    }
+   const commentCreatedByUser=async()=>{
+    try{
+        const response=await fetch(`http://localhost:3000/api/comments/user/${userId}`);
+       const result=await response.json();
+       console.log(result);
+       setComments(result);
+    }catch(error){
+       console.log(error);
+    }
+}
    
    const reviewCreatedByUser=async()=>{
     try{
@@ -84,12 +99,13 @@ const handleReviewClick = (review) => {
   };
 
    return(
+   
     <div> 
       
         <h3>User Reviews</h3>
         {reviews&&reviews.length==0&&<h3>No Reviews </h3>}
       <ul >
-          {reviews&&reviews.map(r=>(
+          {reviews.length>1&&reviews.map(r=>(
             <div  className='rewviewContainer'>
             <li key={r.id} >
                 
@@ -131,8 +147,13 @@ const handleReviewClick = (review) => {
              ))
           }
         </ul>
+       
+          <h3> Comments</h3>
+          
+       
         
     </div>
+   
    )
 
 }
