@@ -7,7 +7,7 @@ import Logout from './components/Logout.jsx';
 import SelectedCharacter from './components/SelectedCharacter.jsx';
 import SignupPage from '/src/client/components/SignupPage.jsx';
 import AllUser from './components/AllUser.jsx';
-import Me from './components/me.jsx';
+import Me from './components/Me.jsx'; //bk fixed case error in path
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import AllCharacters from '/src/client/components/AllCharacters.jsx';

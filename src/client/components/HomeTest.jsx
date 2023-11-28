@@ -45,6 +45,39 @@ console.log(categoryData)
    
   };
 
+const fetchCharacterByName = async (firstName, lastName) => {
+  setLoading(true);
+  try {
+    const response = await fetch(`http://localhost:3000/api/characters/searchChar?q=${firstName}&lastName=${lastName}`);
+    const characterData = await response.json();
+
+    if (response.ok && characterData.length > 0) {
+      // If character data exists, navigate to the details of the first character found
+      const firstCharacter = characterData[0];
+      navToCharacterDetails(firstCharacter.id);
+    } else {
+      console.error('Character not found');
+      // Handle the case where the character is not found
+    }
+  } catch (error) {
+    console.error('Error fetching character data:', error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+const handleCharacterSearch = async () => {
+  const [firstName, lastName] = searchQuery.trim().split(' ');
+
+  if (!firstName || !lastName) {
+    // Handle case where either first or last name is missing
+    console.error('Both first and last names are required for the search');
+    return;
+  }
+
+  fetchCharacterByName(firstName.toLowerCase(), lastName.toLowerCase());
+};
+
   const handleCharacterClick = (character) => {
     setSelectedCharacter(character);
   };
@@ -70,7 +103,7 @@ console.log(categoryData)
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button onClick={handleSearch}>Search</button>
+        <button onClick={handleCharacterSearch}>Search</button>
       </div>
       <div className="main-content">
         <div>
