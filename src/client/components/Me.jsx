@@ -26,7 +26,7 @@ export default function Me({userId}){
   
    const deleteReview=async(id)=>{
     console.log(id);
-      const response=await fetch(`http://localhost:3000/api/reviews/${id}`,{
+      const response=await fetch(`/api/reviews/${id}`,{
       method:'DELETE'
     });
     reviewCreatedByUser();
@@ -36,7 +36,7 @@ export default function Me({userId}){
    }
    const commentCreatedByUser=async()=>{
     try{
-        const response=await fetch(`http://localhost:3000/api/comments/user/${userId}`);
+        const response=await fetch(`/api/comments/user/${userId}`);
        const result=await response.json();
        console.log(result);
        setComments(result);

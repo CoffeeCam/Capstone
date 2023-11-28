@@ -29,7 +29,7 @@ function ReviewForm({charId,userId,token,}) {
     e.preventDefault();
 
     try {
-      const res=await fetch('http://localhost:3000/api/reviews/isReviewPresent',{
+      const res=await fetch('api/reviews/isReviewPresent',{
         method:'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ function ReviewForm({charId,userId,token,}) {
       console.log(Object.keys(res1).length);
       
       if( Object.keys(res1).length<1){
-        const response = await fetch('http://localhost:3000/api/reviews/createReview', {
+        const response = await fetch('/api/reviews/createReview', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

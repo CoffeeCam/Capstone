@@ -42,7 +42,7 @@ export default function SelectedCharacter({isAdmin,token,userId}){
 
 }
 const getoverAllRating=async()=>{
-  const response=await fetch(`http://localhost:3000/api/reviews/rating/${id}`);
+  const response=await fetch(`/api/reviews/rating/${id}`);
   const result=await response.json();
   console.log(result);
   const rat=new Array();
@@ -65,7 +65,7 @@ const getoverAllRating=async()=>{
 
   const getReviews=async()=>{
     
-    const response=await fetch(`http://localhost:3000/api/reviews/review/${id}`,{
+    const response=await fetch(`/api/reviews/review/${id}`,{
       method: 'GET',
       headers : { 
       'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ const getoverAllRating=async()=>{
 }
     
     const handleReviewDelete=async(id)=>{
-      const response=await fetch(`http://localhost:3000/api/reviews/${id}`,{
+      const response=await fetch(`/api/reviews/${id}`,{
         method:'DELETE'
       })
       const result=response.status;
@@ -89,7 +89,7 @@ const getoverAllRating=async()=>{
      const handleViewComment=async(reviewId)=>{
        setSelectedReview(reviewId);
        try{
-        const response=await fetch(`http://localhost:3000/api/comments/review/comments/${reviewId}`);
+        const response=await fetch(`/api/comments/review/comments/${reviewId}`);
         const result=await response.json();
         console.log(result);
         setComments(result);
