@@ -20,7 +20,7 @@ const AllCharacters = ({token,userId,isAdmin}) => {
 
   const fetchDataForCategory = async (house) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/characters/searchCharacter?house=${house}`);
+      const response = await fetch(`/api/characters/searchCharacter?house=${house}`);
       const categoryData = await response.json();
       return { house, data: categoryData['chars'] };
     } catch (error) {
@@ -78,7 +78,7 @@ const AllCharacters = ({token,userId,isAdmin}) => {
     navigate(`/character/${id}`);
     }
    const handleCharacterDelete=async(id)=>{
-    const response = await fetch(`http://localhost:3000/api/characters/character/${id}`,{
+    const response = await fetch(`api/characters/character/${id}`,{
       method:'DELETE'
     })
     fetchDataForAllCategories();

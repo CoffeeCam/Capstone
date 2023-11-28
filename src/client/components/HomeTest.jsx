@@ -17,7 +17,7 @@ const HomeTest = ({token,userId,isAdmin}) => {
   const fetchDataForCategory = async (selectedCategory) => {
     setLoading(!loading);
     try {
-      const response = await fetch(`http://localhost:3000/api/characters/searchChar?q=${selectedCategory}`);
+      const response = await fetch(`/api/characters/searchChar?q=${selectedCategory}`);
       console.log(response)
       const categoryData = await response.json();
 console.log(categoryData)

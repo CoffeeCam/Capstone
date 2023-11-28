@@ -9,7 +9,7 @@ export default function AllUser({isAdmin}){
     },[])
 
     const deleteUser=async(id)=>{
-      const response=await fetch(`http://localhost:3000/api/users/user/${id}`,{
+      const response=await fetch(`/api/users/user/${id}`,{
       method:'DELETE'
     });
     const result=response.status;
@@ -18,7 +18,7 @@ export default function AllUser({isAdmin}){
     }
     const getAllUsers=async()=>{
         try{
-        const response=await fetch(`http://localhost:3000/api/users/alluser`);
+        const response=await fetch(`/api/users/alluser`);
         const result= await response.json();
       
             setUserList(result);
