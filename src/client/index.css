@@ -102,6 +102,11 @@
   }  
 
 }
+
+.navButton {
+
+  margin-right: 10px;
+}
 /* END NAV */
 
 .main-content {

@@ -85,8 +85,8 @@ const handleReviewClick = (review) => {
 
    return(
     <div> 
-      
-        <h3>User Reviews</h3>
+  
+        <h3>My Reviews</h3>
         {reviews&&reviews.length==0&&<h3>No Reviews </h3>}
       <ul >
           {reviews&&reviews.map(r=>(
